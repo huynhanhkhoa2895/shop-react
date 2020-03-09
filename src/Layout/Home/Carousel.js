@@ -12,13 +12,13 @@ class Carousel extends React.Component {
                 items="1"
             >
                 <div className="item">
-                    <img src={'banner/banner.png'} />
+                    <img src={'banner/banner.png'} alt="banner"/>
                 </div>
                 <div className="item">
-                    <img src={'banner/banner2.png'} />
+                    <img src={'banner/banner2.png'} alt="banner"/>
                 </div>
                 <div className="item">
-                    <img src={'banner/banner3.png'} />
+                    <img src={'banner/banner3.png'} alt="banner"/>
                 </div>
             </OwlCarousel>
         );

@@ -10,5 +10,12 @@
 
 }
 @media all and (min-width: 767px) {
-
+    .row-category-box{
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .row-category-box img{
+        height: 100%;
+        width: 100%;
+    }
 }

@@ -13,7 +13,7 @@ class Main extends React.Component {
     render() {
         return (
           <Switch>
-            <Route path={"/category/:id"} exact={true} component={Category} />
+            <Route path={"/category/:route"} exact={true} component={Category} />
             <Route path={"/"} exact={true} component={Home}/>   
             <Route component={NotFound}/>         
           </Switch>
