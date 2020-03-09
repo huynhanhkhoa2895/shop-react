@@ -1,0 +1,14 @@
+.carousel-container .owl-theme .item{
+    height: 500px;
+    overflow: hidden;
+}
+.carousel-container .owl-theme .item img{
+    height: 100%;
+    width: 100%;
+}
+@media all and (max-width: 767px) {
+
+}
+@media all and (min-width: 767px) {
+
+}
