@@ -42,6 +42,19 @@ class Footer extends React.Component {
                     </div>                    
                     <div className="col-md-3">
                         <h3 className="tt-collapse-title">VỀ CHÚNG TÔI</h3>
+                        <div className="content-footer">
+                            <ul>
+                                <li>
+                                    <p><NavLink to="about.html">Giới thiệu Shop</NavLink></p>
+                                </li>
+                                <li>
+                                    <p><NavLink to="about.html">Chính sách bảo mật thông tin cá nhân</NavLink></p>
+                                </li>
+                                <li>
+                                    <p><NavLink to="about.html">Điều khoản sử dụng</NavLink></p>
+                                </li>
+                            </ul>                           
+                        </div>
                     </div>
                     <div className="col-md-3">
                         <h3 className="tt-collapse-title">PHƯƠNG THỨC THANH TOÁN</h3>                        

@@ -10,7 +10,7 @@ class Home extends React.Component {
             product : []
         }
     }
-    componentDidMount() {
+    componentWillMount() {
         fetch("http://127.0.0.1:3000/api/v1/product")
           .then(res => res.json())
           .then(

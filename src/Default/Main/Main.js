@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, NavLink,Switch } from 'react-rout
 import Home from '../../Layout/Home/Home.js'
 import Category from '../../Layout/Category/Category.js'
 import NotFound from '../../Layout/NotFound.js'
+import ProductView from '../../Layout/ProductView/ProductView.js';
 class Main extends React.Component {
     constructor(props){
       super(props);
@@ -14,6 +15,7 @@ class Main extends React.Component {
         return (
           <Switch>
             <Route path={"/category/:route"} exact={true} component={Category} />
+            <Route path={"/product/:route"} exact={true} component={ProductView} />
             <Route path={"/"} exact={true} component={Home}/>   
             <Route component={NotFound}/>         
           </Switch>

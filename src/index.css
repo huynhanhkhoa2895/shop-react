@@ -29,6 +29,9 @@ ul>li{
 .row{
   margin: 0 !important;
 }
+button{
+  border: unset;
+}
 button:focus {
   outline: none !important;
 }

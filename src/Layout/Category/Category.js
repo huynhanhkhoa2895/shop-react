@@ -5,7 +5,7 @@ class Category extends React.Component {
         // 
         console.log();
     }
-    componentDidMount() {
+    componentWillMount() {
         fetch("http://127.0.0.1:3000/api/v1/category/"+this.props.match.params.route)
           .then(res => res.json())
           .then(

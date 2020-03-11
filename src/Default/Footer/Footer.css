@@ -1,6 +1,12 @@
 footer{
     height: 400px;    
 }
+footer a{
+    color: #444;    
+}
+footer p{
+    color: #444;    
+}
 .email-subcrise{
     height: 60px;
     background: #f3a839;
