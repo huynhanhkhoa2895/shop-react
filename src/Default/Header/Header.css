@@ -1,6 +1,19 @@
 header{
     height: 50px;
 }
+#navbar{
+    overflow: hidden;
+    background-color: #f3a839;
+}
+#navbar a{
+    color: #fff;
+}
+#navbar.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
 @media all and (max-width: 767px) {
 
 }

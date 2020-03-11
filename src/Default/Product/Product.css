@@ -1,0 +1,75 @@
+.product-container-box{
+    width: 300px;
+    height: 570px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.product-container-box:hover{
+    box-shadow: 1px 2px 6px 2px #cccccc
+}
+.product-container-box:hover .box-img{
+    border-radius: 10px 10px 0 0
+}
+.product-container-box .box-img{
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 10px
+}
+.product-container-box .box-img img{
+    width: 100%;
+    height: 100%;
+}
+.product-container-box .box-content{
+    height: 150px;
+    padding-top: 10px;
+}
+.product-container-box .box-content .product-name a{
+    
+    font-family: 'Hind', sans-serif;
+    font-weight: 400;
+}
+.product-container-box .box-content .product-name a{
+    font-size: 14px;
+    color: #f3a839;
+}
+.product-container-box .box-content .product-brand a{
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #999999;
+}
+.product-container-box .box-content .product-price{
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #444;
+}
+.product-container-box .product-small-image{
+    width: 100%;
+    margin: auto;
+    padding: 0 10;
+}
+.product-container-box .box-small-img{
+    width: 50px;
+    height: 75px;
+    display: inline-block;
+    margin-right: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.product-container-box .box-small-img img{
+    height: 100%;
+    width: 100%;
+}
+.product-container-box .box-small-img :last-child{
+    margin-right: 0
+}
+.product-container-box .box-small-img.active{
+    border: 3px solid #f3a839;
+    border-radius: 10px;
+}
+@media all and (max-width: 767px) {
+
+}
+@media all and (min-width: 767px) {
+
+}

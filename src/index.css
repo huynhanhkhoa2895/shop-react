@@ -7,6 +7,9 @@ body,html{
   margin: 0;
   padding: 0;
 }
+.h100{
+  height: 100%;
+}
 a{
   text-decoration: none
 }
@@ -20,7 +23,13 @@ ul>li{
   width: 100%;
   height: 100%;
 }
+.pd0{
+  padding: 0 !important;
+}
 .row{
   margin: 0 !important;
+}
+button:focus {
+  outline: none !important;
 }
 
