@@ -32,4 +32,6 @@ ul>li{
 button:focus {
   outline: none !important;
 }
-
+.clear{
+  clear: both;
+}

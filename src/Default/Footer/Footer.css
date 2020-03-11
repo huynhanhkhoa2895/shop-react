@@ -1,0 +1,23 @@
+footer{
+    height: 400px;    
+}
+.email-subcrise{
+    height: 60px;
+    background: #f3a839;
+}
+.footer-content{    
+    background: #f7f8fa;
+    height: calc(100% - 60px);
+    padding: 10px;
+}
+.footer-content .col-md-3{
+    padding-top: 60px;
+}
+.tt-collapse-title{
+    color: #191919;
+    padding-bottom: 15px;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    font-family: 'Hind', sans-serif;
+}

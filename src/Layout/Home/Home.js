@@ -124,6 +124,7 @@ class Home extends React.Component {
                 </div>
                 <div className="row-new-product" style={{width : "930px",margin : "auto "}}>
                     {this.state.product}
+                    <div className="clear"></div>
                 </div>
 
             </div>
