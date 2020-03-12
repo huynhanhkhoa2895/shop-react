@@ -1,6 +1,8 @@
 import React from 'react';
 import './Header.css';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart,faSearch,faUser } from '@fortawesome/free-solid-svg-icons'
 class Header extends React.Component {
     constructor(props){
       super(props);
@@ -44,8 +46,13 @@ class Header extends React.Component {
         return (
             <header id="navbar">
               <div className="header-container">
-                <ul className="header-list">
+                <ul className="header-list left">
                   {this.state.menus}
+                </ul>
+                <ul className="right">
+                  <li style={{marginRight : "20px"}}><FontAwesomeIcon icon={faSearch} color="#fff"/></li>
+                  <li style={{marginRight : "20px"}}><FontAwesomeIcon icon={faShoppingCart} color="#fff"/></li>
+                  <li style={{marginRight : "20px"}}><FontAwesomeIcon icon={faUser} color="#fff"/></li>
                 </ul>
               </div>
             </header>

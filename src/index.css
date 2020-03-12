@@ -38,3 +38,27 @@ button:focus {
 .clear{
   clear: both;
 }
+.f16{
+  font-size: 16px;
+}
+.f14{
+  font-size: 14px;
+}
+.f18{
+  font-size: 18px; 
+}
+.f20{
+  font-size: 20px; 
+}
+.colorGrey{
+  color: #999999
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.font-title{
+  font-family: 'Hind', sans-serif;
+}

@@ -29,11 +29,11 @@ header{
         padding: 0;
         line-height: 50px;
     }
-    .header-container ul.header-list li{
+    .header-container ul>li{
         display: inline-block;
         margin-right: 10px;
     }
-    .header-container ul.header-list li a{
+    .header-container ul>li a{
         font-size: 18px;
         text-transform: capitalize
     }

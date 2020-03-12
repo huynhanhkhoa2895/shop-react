@@ -13,13 +13,13 @@ class Carousel extends React.Component {
                 autoplay
             >
                 <div className="item">
-                    <img src={process.env.PUBLIC_URL + 'banner/banner.png'} alt="banner"/>
+                    <img src={window.location.origin + '/banner/banner.png'} alt="banner"/>
                 </div>
                 <div className="item">
-                    <img src={process.env.PUBLIC_URL + 'banner/banner2.png'} alt="banner"/>
+                    <img src={window.location.origin + '/banner/banner2.png'} alt="banner"/>
                 </div>
                 <div className="item">
-                    <img src={process.env.PUBLIC_URL + 'banner/banner3.png'} alt="banner"/>
+                    <img src={window.location.origin + '/banner/banner3.png'} alt="banner"/>
                 </div>
             </OwlCarousel>
         );
