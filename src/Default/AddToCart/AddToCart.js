@@ -17,8 +17,6 @@ class AddToCart extends React.Component {
 
     }
     AddCart(){
-        const [cookies, setCookie] = useCookies(['name']);
-        setCookie('name', '123');
         console.log("Đã Add");
     }
     render() {
