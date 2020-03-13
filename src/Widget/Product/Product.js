@@ -37,7 +37,7 @@ class Product extends React.Component {
         let arr = [];
         this.state.images.map((e,index)=>{       
             arr.push(
-                <div onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index == 0 ? 'box-small-img active' : 'box-small-img'}>
+                <div onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
                     <img src={window.location.origin + '/product/' + e} alt={this.props.name} />
                 </div>
             )     

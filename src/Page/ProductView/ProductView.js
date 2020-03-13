@@ -2,10 +2,10 @@ import React from 'react';
 import './ProductView.css';
 import $ from 'jquery'
 import { NavLink,Redirect } from 'react-router-dom';
-import AddToCart from '../../Default/AddToCart/AddToCart';
+import AddToCart from '../../Widget/AddToCart/AddToCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus,faMinus } from '@fortawesome/free-solid-svg-icons'
-import ProductList from '../../Default/ProductList/ProductList.js'
+import ProductList from '../../Widget/ProductList/ProductList.js'
 class ProductView extends React.Component {
     constructor(props){
         super(props);
@@ -22,7 +22,7 @@ class ProductView extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
-              if(result.product.length == 0){                  
+              if(result.product.length === 0){                  
                 return <Redirect to="not-found.html" />
               }else{
                   this.setState({
@@ -33,7 +33,7 @@ class ProductView extends React.Component {
                   let arr = [];
                   this.state.images.map((e,index)=>{       
                       arr.push(
-                          <div onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index == 0 ? 'box-small-img active' : 'box-small-img'}>
+                          <div onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
                               <img src={window.location.origin + '/product/' + e.name} alt={this.props.name} />
                           </div>
                       )     
@@ -63,7 +63,7 @@ class ProductView extends React.Component {
         return a;
     }
     changeQty(type){
-        if(type == "plus"){
+        if(type === "plus"){
             this.setState({
                 qty : this.state.qty+=1,
             })
@@ -107,7 +107,7 @@ class ProductView extends React.Component {
                                         </div>                                        
                                     </div>
                                     <div className="col-md-8">
-                                        <AddToCart qty={this.state.qty} />
+                                        <AddToCart product={this.state.product} qty={this.state.qty} />
                                     </div>
                                 </div>
                                 

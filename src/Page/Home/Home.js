@@ -1,9 +1,10 @@
 import React from 'react';
 import Carousel from './Carousel.js';
-
+import {getCookie} from "../../Widget/Cookie/Cookie.js"
 import './Home.css';
 import { NavLink } from 'react-router-dom';
-import ProductList from '../../Default/ProductList/ProductList.js';
+import ProductList from '../../Widget/ProductList/ProductList.js';
+import Notify from '../../Widget/Notify/Notify.js';
 class Home extends React.Component {
     constructor(props){
         super(props);
@@ -11,9 +12,14 @@ class Home extends React.Component {
             product : []
         }
     }
+    componentWillMount(){
+    }
     render() {
         return (                              
             <div className="container-full">
+                <div className="row">
+                    <Notify />
+                </div>
                 <div className="carousel-container">
                     <Carousel />
                 </div>
@@ -89,7 +95,7 @@ class Home extends React.Component {
                 </div>
             </div>
         );
-      }
+    }
 }
 
 export default Home;

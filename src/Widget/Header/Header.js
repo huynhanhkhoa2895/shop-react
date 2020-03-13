@@ -3,12 +3,15 @@ import './Header.css';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart,faSearch,faUser } from '@fortawesome/free-solid-svg-icons'
+import $ from 'jquery'
 class Header extends React.Component {
     constructor(props){
       super(props);
       this.state = {
         menus : [],
-        sticky : 0
+        sticky : 0,
+        cart : this.props.cart,
+        templateMinicart : '',
       };
     }
     componentDidMount() {
@@ -31,7 +34,8 @@ class Header extends React.Component {
             });
           }
         )
-      }
+      this.templateMinicart();
+    }
     onSticky(){
       window.onscroll = () => {this.sticky()};
     }
@@ -40,6 +44,18 @@ class Header extends React.Component {
         document.getElementById("navbar").classList.add("sticky")
       } else {
         document.getElementById("navbar").classList.remove("sticky");
+      }
+    }
+    openMiniCart(){
+
+    }
+    templateMinicart(){
+      if($.isEmptyObject(this.state.cart)){
+        this.setState({
+          templateMinicart : <div style={{marginTop : "100px", textAlign : "center"}}><span className="colorGrey f20">Không Có Sản Phẩm Nào</span></div>
+        })
+      }else{
+
       }
     }
     render() {
@@ -51,7 +67,12 @@ class Header extends React.Component {
                 </ul>
                 <ul className="right">
                   <li style={{marginRight : "20px"}}><FontAwesomeIcon icon={faSearch} color="#fff"/></li>
-                  <li style={{marginRight : "20px"}}><FontAwesomeIcon icon={faShoppingCart} color="#fff"/></li>
+                  <li style={{marginRight : "20px", position : 'relative'}} onClick={this.openMiniCart}>
+                    <FontAwesomeIcon icon={faShoppingCart} color="#fff"/>
+                    <div className="minicart">
+                      {this.state.templateMinicart}
+                    </div>
+                  </li>
                   <li style={{marginRight : "20px"}}><FontAwesomeIcon icon={faUser} color="#fff"/></li>
                 </ul>
               </div>

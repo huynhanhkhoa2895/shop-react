@@ -1,17 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
-import Layout from './Layout/Layout.js';
-
+import Layout from './Page/Layout.js';
+import { Provider } from 'react-redux';
+import {createStore} from 'redux';
+import appReducers from './reducer/index';
+const store = createStore(
+	appReducers, /* preloadedState, */
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 function App() {
   return (
-    <CookiesProvider>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    </CookiesProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </Provider>
   );
 }
 

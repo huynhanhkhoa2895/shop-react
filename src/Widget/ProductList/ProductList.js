@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProductList.css';
-import Product from '../../Default/Product/Product.js';
+import Product from '../../Widget/Product/Product.js';
 import $ from 'jquery'
 import AddToCart from '../AddToCart/AddToCart.js'
 import { NavLink } from 'react-router-dom';

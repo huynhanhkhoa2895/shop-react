@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink,Switch } from 'react-router-dom';
-import Home from '../../Layout/Home/Home.js'
-import Category from '../../Layout/Category/Category.js'
-import NotFound from '../../Layout/NotFound.js'
-import ProductView from '../../Layout/ProductView/ProductView.js';
+import Home from '../../Page/Home/Home.js'
+import Category from '../../Page/Category/Category.js'
+import NotFound from '../../Page/NotFound.js'
+import ProductView from '../../Page/ProductView/ProductView.js';
 class Main extends React.Component {
     constructor(props){
       super(props);

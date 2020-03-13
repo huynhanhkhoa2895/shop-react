@@ -2,7 +2,6 @@ header{
     height: 50px;
 }
 #navbar{
-    overflow: hidden;
     background-color: #f3a839;
 }
 #navbar a{
@@ -14,6 +13,16 @@ header{
     width: 100%;
     z-index: 100;
 }
+.minicart{
+    position: absolute;
+    right: 0;
+    width: 350px;
+    height: 300px;
+    top: 40px;
+    background: #fff;
+    border: 1px solid #eee;
+    z-index: 1;
+}
 @media all and (max-width: 767px) {
 
 }
@@ -22,7 +31,6 @@ header{
         height: 100%;
         width: 70%;
         margin: auto;
-        overflow: hidden;
     }
     .header-container ul{
         margin: 0;
