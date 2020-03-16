@@ -1,8 +1,6 @@
 import React from 'react';
 import './AddToCart.css';
-import {setCookie, clearCookie, getCookie} from '../Cookie/Cookie.js'
 import { connect } from 'react-redux';
-import Header from '../Header/Header.js'
 import $ from 'jquery'
 class AddToCart extends React.Component {
     constructor(props){        
@@ -10,9 +8,7 @@ class AddToCart extends React.Component {
         this.AddCart = this.AddCart.bind(this)
     }
     AddCart(){
-        this.props.AddCart();
-        console.log("AddCart");
-        console.log(this.props.carts);
+        this.props.AddCart({product : this.props.product,qty : this.props.qty})
         // let arr = this.state.cart;
         // if(arr[this.props.product.id] == null){
         //     arr[this.props.product.id] = {};
@@ -34,7 +30,6 @@ class AddToCart extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    
     return {
         carts: state.carts
     }
@@ -42,13 +37,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        // "ADD_PRODUCT" : () => {dispatch({type : 'ADD_PRODUCT'})}
-        AddCart: () => {
-            dispatch({type : 'BUY_PRODUCT'}) ;
+        AddCart: (product) => {
+            dispatch({type : 'BUY_PRODUCT',product}) ;
         },
-        // changeNotify: (value) => {
-        //     dispatch(actChangeNotify(value));
-        // }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AddToCart);

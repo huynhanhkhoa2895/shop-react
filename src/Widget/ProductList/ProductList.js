@@ -27,7 +27,8 @@ class ProductList extends React.Component {
                         product : this.state.product.concat(
                             <div key={index} className="home-product-col">
                                 <Product 
-                                    key={index} 
+                                    key={index}
+                                    product = {e}
                                     images={image[e.id]} 
                                     id={e.id} 
                                     price={e.price} 

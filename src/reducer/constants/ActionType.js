@@ -4,3 +4,4 @@ export const UPDATE_PRODUCT 	= 'UPDATE_PRODUCT';
 export const REMOVE_PRODUCT 	= 'REMOVE_PRODUCT';
 export const CHANGE_NOTIFY 		= 'CHANGE_NOTIFY';
 export const ADD_PRODUCT 		= 'ADD_PRODUCT';
+export const GET_CART 		= 'GET_CART';
