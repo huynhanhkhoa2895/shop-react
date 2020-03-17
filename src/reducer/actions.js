@@ -36,10 +36,9 @@ export const actAddToCart = (product) => {
 		product
 	}
 }
-export const updateQtyInCart = (cart) => {
+export const updateQtyInCart = () => {
 	return {
-		type : 'UPDATE_QTY_IN_CART',
-		cart
+		type : 'UPDATE_QTY_IN_CART'		
 	}
 }
 

@@ -8,12 +8,15 @@ class Class1 extends React.Component {
             value : "Class",
             cart : 1,
         }
-        this.addCart = this.props.addCartInRedux.bind(this)
     }
     getCart(){
         console.log("CART");
     }
     addCart(){
+        console.log("Add CART");
+        this.props.addCartInRedux({id : 1,qty : 5});
+        this.props.getCart();
+        this.props.openPopup();
         this.setState({
             cart : this.state.cart++,
         })
@@ -21,10 +24,7 @@ class Class1 extends React.Component {
     render() {
         return (
             <div className="row">
-                <div className="col-6"><button onClick={() => {
-                    this.addCart.bind(this)
-                    
-                }}>CLICK</button></div>
+                <div className="col-6"><button className="btn btn-success" onClick={this.addCart.bind(this)}>CLICK</button></div>
                 <div className="col-6">{this.state.value}</div>
             </div>
         );
@@ -37,9 +37,16 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        addCartInRedux : ()=>{
-            dispatch(actAddToCart);
+        addCartInRedux : (product)=>{
+            dispatch(actAddToCart(product));
+            
             // dispatch(updateQtyInCart)
+        },
+        getCart : ()=>{
+            dispatch({type : 'GET_CART'});
+        },
+        openPopup : ()=>{
+            dispatch({type : 'OPEN_POPUP'})
         }
     }
 }

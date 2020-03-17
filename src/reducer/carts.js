@@ -21,10 +21,9 @@ const carts = (state = defaultState, action) => {
             console.log(state);
             return state;
         case 'ADD_TO_CART' :
-            console.log('ADD_TO_CART')
+            state = action.product;
             return {...state}
-        case 'UPDATE_QTY_IN_CART' :
-            console.log('UPDATE_QTY_IN_CART')
+        case 'GET_CART' :
             return {...state}
         default:
 			return state;

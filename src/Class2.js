@@ -4,32 +4,36 @@ class Class2 extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            value : "Class 2"
+            value : "Class 2",
+            items : this.props.items
         }
-    }
-    getCart(){
-        console.log("CART");
     }
     getStageClass2(){
         return this.state.value
     }
     render() {
+        let {minicart} = this.props;
         return (
             <div className="row">
-                <div className="col-6"><button>CLICK 2</button></div>
-                <div className="col-6">{this.state.value}</div>
+                <div className="col-6">
+                    {this.openMinicart(minicart)}
+                </div>
             </div>
         );
+    }
+    openMinicart(minicart){
+        console.log("openMinicart",minicart)
     }
 }
 const mapStateToProps = state => {
     return {
-        items: state.carts
+        minicart: state.minicart,
+        cart : state.notify2
     }
 }
-const mapDispatchToProps = state => {
-    return {
-        items: state.carts
-    }
-}
-export default connect(null, mapDispatchToProps)(Class2);
+// const mapDispatchToProps = state => {
+//     return {
+//         items: state.carts
+//     }
+// }
+export default connect(mapStateToProps, null)(Class2);

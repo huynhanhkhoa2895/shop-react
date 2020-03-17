@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import notify2 from './notify2';
+import minicart from './minicart';
 import carts from './carts';
 const appReducers = combineReducers({
-	notify2,carts,	
+	minicart,carts,	
 });
 
 export default appReducers;
