@@ -1,6 +1,7 @@
 import React from 'react';
 import './AddToCart.css';
 import { connect } from 'react-redux';
+import {header} from '../Header/Header'
 import $ from 'jquery'
 class AddToCart extends React.Component {
     constructor(props){        
@@ -9,19 +10,7 @@ class AddToCart extends React.Component {
     }
     AddCart(){
         this.props.AddCart({product : this.props.product,qty : this.props.qty})
-        // let arr = this.state.cart;
-        // if(arr[this.props.product.id] == null){
-        //     arr[this.props.product.id] = {};
-        //     arr[this.props.product.id]['product'] = this.props.product;
-        //     arr[this.props.product.id]['qty'] = this.props.qty;
-        // }else{
-        //     arr[this.props.product.id]['qty'] = this.props.qty;
-        // }
-        // this.setState({
-        //     cart : arr
-        // })
-        // setCookie('cart',this.state.cart)
-        
+        header.openMiniCart();        
     }
     render() {
         return (

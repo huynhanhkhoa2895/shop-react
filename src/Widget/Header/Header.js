@@ -3,7 +3,8 @@ import './Header.css';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart,faSearch,faUser } from '@fortawesome/free-solid-svg-icons'
-import { connect } from 'react-redux';
+import {getCookie} from "../Cookie/Cookie"
+import Minicart from '../Minicart/Minicart'
 import $ from 'jquery'
 class Header extends React.Component {
     constructor(props){
@@ -11,11 +12,17 @@ class Header extends React.Component {
       this.state = {
         menus : [],
         sticky : 0,
-        cart : this.props.cart,
+        cart : getCookie('cart'),
         templateMinicart : '',
       };
+      this.componentWillMount();
+      this.openMiniCart = this.openMiniCart.bind(this)
+    }
+    componentWillMount(){
+      console.log("MOUNT");
     }
     componentDidMount() {
+      this.templateMinicart();
       this.setState({sticky : document.getElementById("navbar").offsetTop})
       this.onSticky();
       fetch("http://127.0.0.1:3000/api/v1/getHeaderMenu")
@@ -35,7 +42,6 @@ class Header extends React.Component {
             });
           }
         )
-      this.templateMinicart();
     }
     onSticky(){
       window.onscroll = () => {this.sticky()};
@@ -48,7 +54,9 @@ class Header extends React.Component {
       }
     }
     openMiniCart(){
-      console.log("openMiniCart",this.props.cart)
+      console.log("openMiniCart",getCookie('cart'))
+      return <Minicart />
+      // this.templateMinicart();
     }
     templateMinicart(){
       if($.isEmptyObject(this.state.cart)){
@@ -88,18 +96,6 @@ class Header extends React.Component {
         );
       }
 }
-const mapStateToProps = state => {
-  return {
-      carts: state.carts
-  }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    AddCart: (product) => {
-        dispatch({type : 'BUY_PRODUCT',product}) ;
-    },
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+const header = new Header;
+export {header,Header};
 

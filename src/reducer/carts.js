@@ -20,6 +20,12 @@ const carts = (state = defaultState, action) => {
         case types.GET_CART:
             console.log(state);
             return state;
+        case 'ADD_TO_CART' :
+            console.log('ADD_TO_CART')
+            return {...state}
+        case 'UPDATE_QTY_IN_CART' :
+            console.log('UPDATE_QTY_IN_CART')
+            return {...state}
         default:
 			return state;
 	}
