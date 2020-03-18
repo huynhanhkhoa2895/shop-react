@@ -4,7 +4,7 @@ header{
 #navbar{
     background-color: #f3a839;
 }
-#navbar a{
+#navbar ul.header-list>li>a{
     color: #fff;
 }
 #navbar.sticky {
@@ -18,10 +18,37 @@ header{
     right: 0;
     width: 350px;
     height: 300px;
+    padding: 10px 0;
     top: 40px;
     background: #fff;
     border: 1px solid #eee;
     z-index: 2;
+}
+.minicart .minicart-box{
+    height: 150px;
+}
+.minicart .minicart-box>div{
+    height: 100%;
+}
+.minicart .minicart-img{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.minicart .minicart-img a{
+    display: block
+}
+.minicart .minicart-img img{
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+.minicart .minicart-content ul{
+    line-height: normal
+}
+.minicart .minicart-content ul>li{
+    margin-bottom: 10px
 }
 @media all and (max-width: 767px) {
 
@@ -32,16 +59,16 @@ header{
         width: 70%;
         margin: auto;
     }
-    .header-container ul{
+    .header-container ul.header-list{
         margin: 0;
         padding: 0;
         line-height: 50px;
     }
-    .header-container ul>li{
+    .header-container ul.header-list>li{
         display: inline-block;
         margin-right: 10px;
     }
-    .header-container ul>li a{
+    .header-container ul.header-list>li a{
         font-size: 18px;
         text-transform: capitalize
     }

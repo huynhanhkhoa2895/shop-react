@@ -5,6 +5,10 @@ const minicart = (state = defaultState, action) => {
             // this.getCart()
             state.openPopup = true;
             return {...state}
+        case "CLOSE_POPUP":   
+            // this.getCart()
+            state.openPopup = false;
+            return {...state}
         default:
 			return state;
 	}

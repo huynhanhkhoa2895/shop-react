@@ -107,7 +107,7 @@ class ProductView extends React.Component {
                                         </div>                                        
                                     </div>
                                     <div className="col-md-8">
-                                        <AddToCart product={this.state.product} qty={this.state.qty} />
+                                        <AddToCart product={this.state.product} qty={this.state.qty} img={this.state.images} />
                                     </div>
                                 </div>
                                 

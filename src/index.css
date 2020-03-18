@@ -53,6 +53,9 @@ button:focus {
 .colorGrey{
   color: #999999
 }
+.colorW{
+  color: #ffffff
+}
 .left{
   float: left;
 }
@@ -61,4 +64,13 @@ button:focus {
 }
 .font-title{
   font-family: 'Hind', sans-serif;
+}
+.color{
+  color : #f3a839
+}
+.background{
+  background : #f3a839
+}
+input:focus{
+  outline: unset
 }

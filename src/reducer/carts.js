@@ -4,9 +4,10 @@ import * as types from './constants/ActionType';
 const defaultState = getCookie('cart') === null ? {} :  getCookie('cart')
 const carts = (state = defaultState, action) => {
 	switch(action.type){
-        case types.BUY_PRODUCT:
+        case 'ADD_TO_CART':
             let product = action.product.product;
             let qty = action.product.qty;
+            let img = action.product.img;
             if(state[product.id] == null){
                 state[product.id] = {};
                 state[product.id]['product'] = product;
@@ -14,15 +15,13 @@ const carts = (state = defaultState, action) => {
             }else{
                 state[product.id]['qty'] += qty;
             }
+            state[product.id]['img'] = img;
             setCookie('cart',state)
-            return state;
-        break;
+            return {...state}
+            break;
         case types.GET_CART:
             console.log(state);
             return state;
-        case 'ADD_TO_CART' :
-            state = action.product;
-            return {...state}
         case 'GET_CART' :
             return {...state}
         default:
