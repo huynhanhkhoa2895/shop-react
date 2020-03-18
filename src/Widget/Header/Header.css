@@ -17,23 +17,31 @@ header{
     position: absolute;
     right: 0;
     width: 350px;
-    height: 300px;
     padding: 10px 0;
     top: 40px;
     background: #fff;
     border: 1px solid #eee;
     z-index: 2;
 }
+.minicart .minicart-product{
+    height: 300px;
+    overflow: auto;
+}
+.minicart .minicart-info{
+    height: 100px;
+}
 .minicart .minicart-box{
-    height: 150px;
+    height: 130px;
+    margin-bottom: 10px;
 }
 .minicart .minicart-box>div{
     height: 100%;
 }
 .minicart .minicart-img{
-    height: 100%;
-    width: 100%;
+    height: 110px;
+    width: 90px;
     overflow: hidden;
+    margin: auto;
 }
 
 .minicart .minicart-img a{

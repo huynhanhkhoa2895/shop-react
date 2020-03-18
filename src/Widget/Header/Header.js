@@ -19,6 +19,14 @@ class Header extends React.Component {
       this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
+      let arr = {};
+      Object.keys(this.props.carts).map((e)=>{
+        arr[e] = this.props.carts[e].qty;
+      })
+      this.setState({
+        input : arr
+      })
+      
       this.setState({sticky : document.getElementById("navbar").offsetTop})
       this.onSticky();
       fetch("http://127.0.0.1:3000/api/v1/getHeaderMenu")
@@ -50,12 +58,14 @@ class Header extends React.Component {
       }
     }
     handleChange(event) {
-      // let e = event.target.getAttribute('data-id');      
+      let e = event.target.getAttribute('data-id');  
+      let arr = this.state.input;
+      arr[e] = event.target.value
       // this.props.carts[e].qty = event.target.value;
       // console.log(event.target.value)
       // console.log(this.props.carts[e].qty)
       this.setState({
-        input : event.target.value
+        input : arr
       })
     }  
     openMiniCart(){
@@ -88,7 +98,7 @@ class Header extends React.Component {
                     <li><span className="colorGrey">Loại : </span>{this.props.carts[e].product.category_name}</li>
                     <li>
                       <div className="row">
-                        <div className="col-4" style={{paddingLeft : 0}}><input style={{display: 'block',width: '100%',height: '100%',textAlign: 'center'}} value={this.state.input} pattern="[0-9]*" inputmode="numeric" data-id={e} onChange={this.handleChange}/></div>
+                        <div className="col-4" style={{paddingLeft : 0}}><input style={{display: 'block',width: '100%',height: '100%',textAlign: 'center'}} value={this.state.input[e]} pattern="[0-9]*" inputmode="numeric" data-id={e} onChange={this.handleChange}/></div>
                         <div className="col-4 pd0"><button className="background colorW" style={{padding : "5px"}}>Update</button></div>
                         <div className="col-4 text-center" style={{lineHeight : "1.8"}}><FontAwesomeIcon icon={faTrash} className="color"/></div>
                       </div>
@@ -104,6 +114,7 @@ class Header extends React.Component {
       }
     }
     render() {
+      console.log("componentDidMount",this.state.input)
         let {carts} = this.props;
         return (
             <header id="navbar">
@@ -116,7 +127,10 @@ class Header extends React.Component {
                   <li style={{marginRight : "20px", position : 'relative'}} >
                     <FontAwesomeIcon icon={faShoppingCart} color="#fff" onClick={this.openMiniCart.bind(this)} style={{cursor : "pointer"}}/>
                     <div className="minicart" style={{display : this.props.minicart.openPopup ? 'block' : 'none'}}>
-                      {this.setTemplateMinicart(carts)}
+                      <div className="minicart-product">
+                        {this.setTemplateMinicart(carts)}
+                      </div>
+                      <div className="minicart-info"></div>
                     </div>
                   </li>
                   <li style={{marginRight : "20px",cursor : "pointer"}}><FontAwesomeIcon icon={faUser} color="#fff"/></li>

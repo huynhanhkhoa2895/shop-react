@@ -7,7 +7,7 @@ const carts = (state = defaultState, action) => {
         case 'ADD_TO_CART':
             let product = action.product.product;
             let qty = action.product.qty;
-            let img = action.product.img;
+            let img = action.product.img == null ? ["no-image.png"] : action.product.img;
             if(state[product.id] == null){
                 state[product.id] = {};
                 state[product.id]['product'] = product;
