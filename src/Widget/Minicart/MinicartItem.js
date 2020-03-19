@@ -18,21 +18,22 @@ class MinicartItem extends React.Component {
         })
     }
     removeItemInCart(){
-        this.props.removeItemInCart(this.state.info.product.id)
+        this.props.removeItemInCart(this.props.info.product.id)
     }
     render(){
+        let {info} = this.props;
         return (
             <div className="row minicart-box">
                 <div className="col-md-6 ">
                     <div className="minicart-img">
-                        <img src={window.location.origin+'/product/'+this.state.info.img[0]} alt={this.state.info.product.name} />                  
+                        <img src={window.location.origin+'/product/'+info.img[0]} alt={info.product.name} />                  
                     </div>
                 </div>
                 <div className="col-md-6 minicart-content pd0">
                     <ul>
-                        <li><h4><Link  to={"product/"+this.state.info.product.route} className="color">{this.state.info.product.name}</Link></h4></li>
-                        <li><span className="colorGrey">Nhãn hiệu : </span>{this.state.info.product.brand_name}</li>
-                        <li><span className="colorGrey">Loại : </span>{this.state.info.product.category_name}</li>
+                        <li><h4><Link  to={"product/"+info.product.route} className="color">{info.product.name}</Link></h4></li>
+                        <li><span className="colorGrey">Nhãn hiệu : </span>{info.product.brand_name}</li>
+                        <li><span className="colorGrey">Loại : </span>{info.product.category_name}</li>
                         <li>
                         <div className="row">
                             <div className="col-4" style={{paddingLeft : 0}}><input style={{display: 'block',width: '100%',height: '100%',textAlign: 'center'}} value={this.state.value} pattern="[0-9]*" inputMode="numeric" onChange={this.handleChange}/></div>
