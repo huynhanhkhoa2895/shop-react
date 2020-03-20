@@ -29,27 +29,23 @@ const carts = (state = defaultState, action) => {
             return [...state]
             break;
         case "REMOVE_ITEM_IN_CART":
-            // console.log(typeof state)
-            // let arr = []
-            // arr.slice(0);
-            // arr = state
             remove(state,(item)=>{
                 return item.id == action.id
             })
-            // state = arr;
-            console.log(state,action.id)
-            // let arr = [];
-            // arr.slice(0);
-            // arr = state;
-            // arr.forEach(function(element,key){                
-            //     if(element.id == action.id){
-            //         arr.splice(key, 1);
-            //     }                    
-            // });
-            // state = arr;
-            // setCookie('cart',state);
+            setCookie('cart',state);
             return [...state];
-            // return [...[{"id":6,"product":{"id":6,"name":"WPFQg","sku":"WPFQg_5","route":"WPFQg_5.html","category_id":2,"brand_id":1,"brand_name":"Nike","brand_route":"nike.html","category_route":"tshirt.html","category_name":"T-Shirt","price":"177625"},"qty":1,"img":["h6_1.png","h6_2.png","h6_3.png"]}]];
+        case "UPDATE_ITEM_IN_CART":
+            let arr = [...state];
+            arr.forEach((e,k)=>{                
+                if(e.id == action.id){
+                    arr[k].qty = action.qty;
+                    return;
+                }
+            })
+            console.log(arr);
+            state = arr;
+            setCookie('cart',state)
+            return [...state];
         default:
 			return [...state];
 	}

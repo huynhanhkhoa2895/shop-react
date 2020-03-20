@@ -5,7 +5,8 @@ import { NavLink,Redirect } from 'react-router-dom';
 import AddToCart from '../../Widget/AddToCart/AddToCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus,faMinus } from '@fortawesome/free-solid-svg-icons'
-import ProductList from '../../Widget/ProductList/ProductList.js'
+import ProductList from '../../Widget/ProductList/ProductList.js';
+import Helper from '../../lib/Helper'
 class ProductView extends React.Component {
     constructor(props){
         super(props);
@@ -58,10 +59,6 @@ class ProductView extends React.Component {
             mainImg : data.name,
         })
     }
-    format_curency(a) {
-        a = a.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-        return a;
-    }
     changeQty(type){
         if(type === "plus"){
             this.setState({
@@ -95,7 +92,7 @@ class ProductView extends React.Component {
                             </div>
                             <div className="product-name">
                                 <p className="font-title" style={{fontSize : "24px"}}><b>{this.state.product.name}</b></p>
-                                <p className="font-title f18" style={{color: "#f3a839"}}><b>{this.format_curency(this.state.product.price)} VND</b></p>
+                                <p className="font-title f18" style={{color: "#f3a839"}}><b>{Helper.format_curency(this.state.product.price)} VND</b></p>
                             </div>
                             <div className="product-checkout">
                                 <div className="row">

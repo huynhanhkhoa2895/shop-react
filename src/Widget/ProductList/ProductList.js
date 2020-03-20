@@ -2,9 +2,6 @@ import React from 'react';
 import './ProductList.css';
 import Product from '../../Widget/Product/Product.js';
 import $ from 'jquery'
-import AddToCart from '../AddToCart/AddToCart.js'
-import { NavLink } from 'react-router-dom';
-
 class ProductList extends React.Component {
     constructor(props){
         super(props);
@@ -37,6 +34,7 @@ class ProductList extends React.Component {
                                     category={e.category_name} 
                                     category_route={e.category_route} 
                                     route={e.route} 
+                                    small = {this.props.small == null || this.props.small == false ? false : true}
                                     name={e.name} />
                             </div>
                         )

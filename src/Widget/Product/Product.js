@@ -3,12 +3,14 @@ import './Product.css';
 import $ from 'jquery'
 import AddToCart from '../AddToCart/AddToCart.js'
 import { NavLink } from 'react-router-dom';
+import Helper from '../../lib/Helper'
 class Product extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             images : [],
             smallImg : [],
+            small : this.props.small ? 'small' : '',
             mainImg : this.props.images == null ? 'no_image.png' : this.props.images[0]
         }
 
@@ -46,13 +48,9 @@ class Product extends React.Component {
             smallImg : arr
         })
     }
-    format_curency(a) {
-        a = a.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-        return a;
-    }
     render() {
         return (
-            <div className="product-container-box">
+            <div className={"product-container-box "+ this.state.small}>
                 <div className="box-img">
                     <NavLink className="text-center" to={"product/"+this.props.route}>
                         <img src={window.location.origin + '/product/' + this.state.mainImg} alt={this.props.name}/>
@@ -66,13 +64,13 @@ class Product extends React.Component {
                         <NavLink className="text-center" to={"product/"+this.props.route}>{this.props.name}</NavLink>
                     </div>
                     <div className="product-price text-center">
-                        <span className="text-center">{this.format_curency(this.props.price)} <b>VND</b></span>
+                        <span className="text-center">{Helper.format_curency(this.props.price)} <b>VND</b></span>
                     </div>
                     <div className="product-small-image text-center">
                         {this.state.smallImg}
                     </div>
                     <div className="product-add-to-cart text-center">
-                        <div style={{width : '150px',margin : 'auto'}}>
+                        <div style={{maxWidth : '150px',margin : 'auto'}}>
                             <AddToCart product={this.props.product} qty={this.state.qty == null ? 1 : this.state.qty} img={this.state.images}/>
                         </div>
                     </div>

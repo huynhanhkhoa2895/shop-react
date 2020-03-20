@@ -26,7 +26,7 @@ class Home extends React.Component {
                                     <div className="box-img">
                                         <img src={"home/h1.png"} alt="img" />
                                     </div>
-                                    <NavLink to="men.html" className="box-button">Men</NavLink>
+                                    <NavLink to="category/men.html" className="box-button">Men</NavLink>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@ class Home extends React.Component {
                                     <div className="box-img">
                                         <img src={"home/h2.png"} alt="img" />
                                     </div>
-                                    <NavLink to="men.html" className="box-button">Men</NavLink>
+                                    <NavLink to="category/men.html" className="box-button">Men</NavLink>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@ class Home extends React.Component {
                             <div className="box-img">
                                 <img src={"home/h3.png"} alt="img" />
                             </div>
-                            <NavLink to="men.html" className="box-button">Men</NavLink>
+                            <NavLink to="category/men.html" className="box-button">Men</NavLink>
                         </div>
                     </div>
                     <div className="col-md-5 pd0 h100">
@@ -56,7 +56,7 @@ class Home extends React.Component {
                                     <div className="box-img">
                                         <img src={"home/h4.png"} alt="img" />
                                     </div>
-                                    <NavLink to="men.html" className="box-button">Men</NavLink>
+                                    <NavLink to="category/men.html" className="box-button">Men</NavLink>
                                 </div>
                             </div>
                             <div className="col-6 pd0">
@@ -64,7 +64,7 @@ class Home extends React.Component {
                                     <div className="box-img">
                                         <img src={"home/h5.png"} alt="img" />
                                     </div>
-                                    <NavLink to="men.html" className="box-button">Men</NavLink>
+                                    <NavLink to="category/men.html" className="box-button">Men</NavLink>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@ class Home extends React.Component {
                                     <div className="box-img">
                                         <img src={"home/h6.png"} alt="img" />
                                     </div>
-                                    <NavLink to="men.html" className="box-button">Men</NavLink>
+                                    <NavLink to="category/men.html" className="box-button">Men</NavLink>
                                 </div>
                             </div>
                         </div>

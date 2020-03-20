@@ -17,7 +17,6 @@ header{
     position: absolute;
     right: 0;
     width: 350px;
-    padding: 10px 0;
     top: 40px;
     background: #fff;
     border: 1px solid #eee;
@@ -26,9 +25,11 @@ header{
 .minicart .minicart-product{
     height: 300px;
     overflow: auto;
+    border-bottom: 1px solid #444;
 }
 .minicart .minicart-info{
-    height: 100px;
+    height: 110px;
+    font-size: 14px;
 }
 .minicart .minicart-box{
     height: 130px;
@@ -41,9 +42,12 @@ header{
     height: 110px;
     width: 90px;
     overflow: hidden;
-    margin: auto;
+    margin-left: 0;
 }
-
+.minicart .minicart-header{
+    height: 25px;
+    padding: 5px
+}
 .minicart .minicart-img a{
     display: block
 }
@@ -57,6 +61,19 @@ header{
 }
 .minicart .minicart-content ul>li{
     margin-bottom: 10px
+}
+.btn-checkout-minicart{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    background: #f3a839;
+    font-size: 14px !important;
+    line-height: 40px;
+    font-weight: 500;
+}
+.btn-checkout-minicart:hover{
+    color: #fff;
 }
 @media all and (max-width: 767px) {
 

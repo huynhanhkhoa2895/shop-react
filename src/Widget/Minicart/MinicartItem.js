@@ -6,22 +6,30 @@ class MinicartItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            value : this.props.info.qty,
+            value : 0,
             info : this.props.info
         };
         this.handleChange = this.handleChange.bind(this);
         this.removeItemInCart = this.removeItemInCart.bind(this);
+        this.updateItemInCart = this.updateItemInCart.bind(this)
       }
     handleChange(event) {
+        const target = event.target; 
+        const value  = target.value;
+        const name   = target.name;
         this.setState({
-            value : event.target.value
+            [name]: value
         })
     }
     removeItemInCart(){
         this.props.removeItemInCart(this.props.info.product.id)
     }
+    updateItemInCart(){
+        this.props.updateItemInCart(this.props.info.product.id,(this.state.value !== 0) ? this.state.value : this.props.info.qty)
+    }
     render(){
         let {info} = this.props;
+        let quantity          = (this.state.value !== 0) ? this.state.value : info.qty;
         return (
             <div className="row minicart-box">
                 <div className="col-md-6 ">
@@ -36,8 +44,8 @@ class MinicartItem extends React.Component {
                         <li><span className="colorGrey">Loại : </span>{info.product.category_name}</li>
                         <li>
                         <div className="row">
-                            <div className="col-4" style={{paddingLeft : 0}}><input style={{display: 'block',width: '100%',height: '100%',textAlign: 'center'}} value={this.state.value} pattern="[0-9]*" inputMode="numeric" onChange={this.handleChange}/></div>
-                            <div className="col-4 pd0"><button className="background colorW" style={{padding : "5px"}} >Update</button></div>
+                            <div className="col-4" style={{paddingLeft : 0}}><input name="value" style={{display: 'block',width: '100%',height: '100%',textAlign: 'center'}} value={quantity} pattern="[0-9]*" inputMode="numeric" onChange={this.handleChange}/></div>
+                            <div className="col-4 pd0"><button className="background colorW" style={{padding : "5px"}} onClick={this.updateItemInCart}>Update</button></div>
                             <div className="col-4 text-center" style={{lineHeight : "1.8"}} onClick={this.removeItemInCart}><FontAwesomeIcon icon={faTrash} className="color"/></div>
                         </div>
                         </li>
