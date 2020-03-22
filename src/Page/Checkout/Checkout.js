@@ -1,5 +1,4 @@
 import React from 'react';
-import {setCookie, clearCookie, getCookie} from '../Cookie/Cookie.js'
 class Checkout extends React.Component {
     constructor(props){        
         super(props);

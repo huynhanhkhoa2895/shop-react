@@ -15,10 +15,14 @@ class ProductView extends React.Component {
             mainImg : '',
             smallImg : [],
             images : [],
+            option : [],
             qty : 1,
         }
+        this.chooseOption = this.chooseOption.bind(this)
     }
     componentWillMount() {
+        let arrImg = [];
+        let arrOption = [];
         fetch("http://127.0.0.1:3000/api/v1/product/view/"+this.props.match.params.route)
         .then(res => res.json())
         .then(
@@ -29,19 +33,46 @@ class ProductView extends React.Component {
                   this.setState({
                     mainImg : result.image[0].name,
                     images : result.image,
-                    product : result.product
+                    product : result.product,
+                    option : []
                   })
-                  let arr = [];
+                  
                   this.state.images.map((e,index)=>{       
-                      arr.push(
-                          <div onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
+                    arrImg.push(
+                          <div key={index+'img'} onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
                               <img src={window.location.origin + '/product/' + e.name} alt={this.props.name} />
                           </div>
                       )     
-                  })        
-                  this.setState({
-                      smallImg : arr
                   })
+                  let classFilter = "";
+                  Object.keys(result.option_product['option']).map((e,index)=>{
+                    if(e == 1){
+                        classFilter = 'filter-size'
+                    }else if(e == 2){
+                        classFilter = 'filter-color'
+                    }else{
+                        classFilter = ""
+                    }
+                    arrOption.push(
+                        <div key={index+'option'} className="row">
+                            <div className="col-md-12 f18 colorGrey pd0">{result.option_product['option'][e]}</div>
+                            <div className="col-md-12">
+                                <div className="row">
+                                    {result.option_product['value'].map((e2,k)=>{
+                                        
+                                        if(e2.option_id == e){
+                                            return (
+                                                <div key={k} style={(e == 2) ? {maxWidth : '40px'} : {}} className="col">
+                                                    <span style={(e == 2) ? {background : e2.value} : {}} className={classFilter} onClick={this.chooseOption({[e2.option_id] :e2.value_id})}>{e == 2 ? '' : e2.value}</span>
+                                                </div>)
+                                        }
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                  })
+
               }
           },
           (error) => {
@@ -50,6 +81,14 @@ class ProductView extends React.Component {
               error
             });
           }
+        ).then(
+            e => {
+                
+                this.setState({
+                    smallImg : arrImg,
+                    option : arrOption
+                })
+            }
         )
     }
     activeSmallImage(e,data){
@@ -58,6 +97,9 @@ class ProductView extends React.Component {
         this.setState({
             mainImg : data.name,
         })
+    }
+    chooseOption(id){
+        console.log(id)
     }
     changeQty(type){
         if(type === "plus"){
@@ -73,6 +115,8 @@ class ProductView extends React.Component {
         }
     }
     render() {
+        console.log(this.state.option)
+
         if(Object.keys(this.state.product).length !== 0){
             return ( 
                 <div className="container product-container">
@@ -93,6 +137,9 @@ class ProductView extends React.Component {
                             <div className="product-name">
                                 <p className="font-title" style={{fontSize : "24px"}}><b>{this.state.product.name}</b></p>
                                 <p className="font-title f18" style={{color: "#f3a839"}}><b>{Helper.format_curency(this.state.product.price)} VND</b></p>
+                            </div>
+                            <div className="product-option" style={{marginBottom : '20px'}}>
+                                {this.state.option}
                             </div>
                             <div className="product-checkout">
                                 <div className="row">
@@ -118,7 +165,7 @@ class ProductView extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <div style={{width : "930px",margin : "auto"}}>
+                            <div style={{maxWidth : "930px",margin : "auto"}}>
                                 <ProductList option={{option : {limit : 6, order : {"product.created_at" : "desc"}, where : {"product.category_id" : this.state.product.category_id}}}} />
                             </div>
                         </div>

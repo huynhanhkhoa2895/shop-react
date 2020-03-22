@@ -85,7 +85,7 @@ class Home extends React.Component {
                         <h3 style={{"fontSize" : "24px","fontWeight" : "500"}} className="text-center">Hàng mới về</h3>
                     </div>
                 </div>
-                <div className="row-new-product" style={{width : "930px",margin : "auto "}}>
+                <div className="row-new-product" style={{maxWidth : "930px",margin : "auto "}}>
                     <ProductList option={{option : {limit : 6, order : {"product.created_at" : "desc"}}}} />
                 </div>
             </div>

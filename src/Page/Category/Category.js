@@ -3,22 +3,26 @@ import LayerNavigation from './LayerNavigation';
 import './Category.css';
 import ProductList from '../../Widget/ProductList/ProductList'
 import $ from 'jquery'
+import queryString from 'query-string';
 class Category extends React.Component {
     constructor(props){
         super(props);
         this.state= {
           info : {},
-          table : {}
+          table : {},
+          filter : 1,
+          page : queryString.parse(this.props.location.search).page == null ? null : queryString.parse(this.props.location.search).page
         }
-        // 
-        console.log();
+        this.changeFilter = this.changeFilter.bind(this)
+    }
+    async changeFilter(filter){
+      await this.setState({filter : filter})
     }
     componentWillMount() {
         fetch("http://127.0.0.1:3000/api/v1/category/"+this.props.match.params.route)
           .then(res => res.json())
           .then(
             (result) => {
-              console.log(result);
               this.setState({
                 info : result.info,
                 table : result.table
@@ -35,22 +39,20 @@ class Category extends React.Component {
       }
     render() {
         let {info} = this.state
-        console.log(this.state);
-        console.log({[this.state.table] : 'ok'})
         let xhtml = <></>
         if(!$.isEmptyObject(this.state.table)){
           xhtml = 
           <div className="container-fluid" style={{paddingTop : "30px"}}>
             <div className="row w100">
-              <div className="col-md-3">
-                <LayerNavigation />
+              <div className="col-md-2">
+                <LayerNavigation changeFilter={this.changeFilter} />
               </div>
-              <div className="col-md-9 pd0">
+              <div className="col-md-10 pd0">
                 <div className="product-list-title">
                   <h3>{this.state.info.name}</h3>
                 </div>
                 <div className="product-list-category w100">
-                  <ProductList option={{option : {order : {"product.created_at" : "desc"},leftJoin : [{table : this.state.table+'_detail', on1 : this.state.table+'_detail.product_id',on2 : 'product.id'}], where : {[this.state.table+'_detail.group_id'] : this.state.info.id}}}} />
+                  <ProductList filter={this.state.filter} option={{page : this.state.page,option : {order : {"product.created_at" : "desc"},leftJoin : [{table : this.state.table+'_detail', on1 : this.state.table+'_detail.product_id',on2 : 'product.id'}],paginate : 8, where : {[this.state.table+'_detail.group_id'] : this.state.info.id}}}} />
                 </div>
               </div>
             </div>

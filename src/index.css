@@ -78,3 +78,32 @@ button:focus {
 input:focus{
   outline: unset
 }
+.filter-size {
+  height: 30px;
+  width: 30px;
+  display: block;
+  line-height: 30px;
+  text-align: center;
+  background: #f3a839;
+  border: 1px solid #f3a839;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+.filter-size:hover,.filter-size.active {
+  background: #fff;
+  color: #f3a839;
+  border: 1px solid #f3a839;
+}
+.filter-color{
+  height: 30px;
+  width: 30px;
+  display: block;
+  cursor: pointer;
+}
+.filter-color:hover,.filter-color.active{
+  border: 3px solid #f3a839;
+  padding: 0;
+  border-radius: 6px;
+}
+
