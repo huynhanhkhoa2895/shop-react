@@ -51,7 +51,16 @@ class LayerNavigation extends React.Component {
     }
     loadFilter(){
         let xhtml = [];
-        this.state.filter.map((e,key) =>
+        let classFilter = "";
+        this.state.filter.map((e,key) =>{
+            if(e.id == 1){
+                classFilter = 'filter-size'
+            }else if(e.id == 2){
+                classFilter = 'filter-color'
+            }else{
+                classFilter = ""
+            }
+            console.log(classFilter)
             xhtml.push(
                 <div key={key+'-filter'} className="filter-container">
                     <div className="filter-title"><span>{e.name}</span></div>
@@ -59,14 +68,14 @@ class LayerNavigation extends React.Component {
                         <ul>
                             {this.state.filter_value.map((e2,key)=>{
                                 if(e.id == e2.option_id){
-                                    return <li key={key+'-value'}><span onClick={this.changeFilter.bind(this,{id : e2.option_id,value : e2.value_id})}>{e2.value}</span></li>
+                                    return <li key={key+'-value'} style={(e.id == 2) ? {maxWidth : '40px',display : 'inline-block',marginRight: '5px'} : {display : 'inline-block',marginRight: '5px'}}><span style={(e.id == 2) ? {background : e2.value} : {}} className={classFilter} onClick={this.changeFilter.bind(this,{id : e2.option_id,value : e2.value_id})}>{e.id == 2 ? '' : e2.value}</span></li>
                                 }
                             })}
                         </ul>
                     </div>
                 </div>
             )
-        )
+        })
         this.setState({
             filter_xhtml : xhtml
         })
