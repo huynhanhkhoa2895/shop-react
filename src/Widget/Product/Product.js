@@ -52,16 +52,16 @@ class Product extends React.Component {
         return (
             <div className={"product-container-box "+ this.state.small}>
                 <div className="box-img">
-                    <NavLink className="text-center" to={"product/"+this.props.route}>
+                    <NavLink className="text-center" to={"/product/"+this.props.route}>
                         <img src={window.location.origin + '/product/' + this.state.mainImg} alt={this.props.name}/>
                     </NavLink>
                 </div>
                 <div className="box-content">
                     <div className="product-brand text-center">
-                        <NavLink className="text-center" to={"category/"+this.props.brand_route}>{this.props.brand}</NavLink>
+                        <NavLink className="text-center" to={"/category/"+this.props.brand_route}>{this.props.brand}</NavLink>
                     </div>
                     <div className="product-name text-center">
-                        <NavLink className="text-center" to={"product/"+this.props.route}>{this.props.name}</NavLink>
+                        <NavLink className="text-center" to={"/product/"+this.props.route}>{this.props.name}</NavLink>
                     </div>
                     <div className="product-price text-center">
                         <span className="text-center">{Helper.format_curency(this.props.price)} <b>VND</b></span>

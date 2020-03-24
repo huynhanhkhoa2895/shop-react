@@ -39,7 +39,7 @@ class MinicartItem extends React.Component {
                 </div>
                 <div className="col-md-6 minicart-content pd0">
                     <ul>
-                        <li><h4><Link  to={"product/"+info.product.route} className="color">{info.product.name}</Link></h4></li>
+                        <li><h4><Link  to={"/product/"+info.product.route} className="color">{info.product.name}</Link></h4></li>
                         <li><span className="colorGrey">Nhãn hiệu : </span>{info.product.brand_name}</li>
                         <li><span className="colorGrey">Loại : </span>{info.product.category_name}</li>
                         <li>

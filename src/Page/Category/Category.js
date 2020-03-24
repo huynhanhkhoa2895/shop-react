@@ -40,6 +40,7 @@ class Category extends React.Component {
     render() {
         let {info} = this.state
         let xhtml = <></>
+        console.log("route",this.state.route)
         if(!$.isEmptyObject(this.state.table)){
           xhtml = 
           <div className="container-fluid" style={{paddingTop : "30px"}}>
@@ -52,7 +53,7 @@ class Category extends React.Component {
                   <h3>{this.state.info.name}</h3>
                 </div>
                 <div className="product-list-category w100">
-                  <ProductList filter={this.state.filter} option={{page : this.state.page,option : {order : {"product.created_at" : "desc"},leftJoin : [{table : this.state.table+'_detail', on1 : this.state.table+'_detail.product_id',on2 : 'product.id'}],paginate : 8, where : {[this.state.table+'_detail.group_id'] : this.state.info.id}}}} />
+                  <ProductList filter={this.state.filter} option={{page : this.state.page,option : {order : {"product.created_at" : "desc"},route : {...this.state.info,table : this.state.table},leftJoin : [{table : this.state.table+'_detail', on1 : this.state.table+'_detail.product_id',on2 : 'product.id'}],paginate : 8, where : {[this.state.table+'_detail.group_id'] : this.state.info.id}}}} />
                 </div>
               </div>
             </div>

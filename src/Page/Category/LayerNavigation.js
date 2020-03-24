@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery'
 class LayerNavigation extends React.Component {
     constructor(props){
         super(props);
@@ -29,7 +30,7 @@ class LayerNavigation extends React.Component {
             }
           ).then(this.loadFilter)
       }
-    async changeFilter(filter){
+    async changeFilter(event,filter){
         let obj = {...this.state.filter_active}
         let check = true;
         Object.keys(this.state.filter_active).map((e)=>{
@@ -38,10 +39,11 @@ class LayerNavigation extends React.Component {
                 return
             }
         }) 
-            
+        $(".filter-item").removeClass("active")
         if(!check){
             delete obj[filter.id]
         }else{
+            $(event.target).addClass("active")
             obj = {...this.state.filter_active,...{[filter.id] : filter.value}}
         }        
         await this.setState({
@@ -54,21 +56,25 @@ class LayerNavigation extends React.Component {
         let classFilter = "";
         this.state.filter.map((e,key) =>{
             if(e.id == 1){
-                classFilter = 'filter-size'
+                classFilter = 'filter-size filter-item'
             }else if(e.id == 2){
-                classFilter = 'filter-color'
+                classFilter = 'filter-color filter-item'
             }else{
-                classFilter = ""
+                classFilter = "filter-item"
             }
             console.log(classFilter)
             xhtml.push(
                 <div key={key+'-filter'} className="filter-container">
                     <div className="filter-title"><span>{e.name}</span></div>
-                    <div className="filter-content">
+                    <div className="filter-container">
                         <ul>
                             {this.state.filter_value.map((e2,key)=>{
                                 if(e.id == e2.option_id){
-                                    return <li key={key+'-value'} style={(e.id == 2) ? {maxWidth : '40px',display : 'inline-block',marginRight: '5px'} : {display : 'inline-block',marginRight: '5px'}}><span style={(e.id == 2) ? {background : e2.value} : {}} className={classFilter} onClick={this.changeFilter.bind(this,{id : e2.option_id,value : e2.value_id})}>{e.id == 2 ? '' : e2.value}</span></li>
+                                    return(
+                                        <li className="filter-content" key={key+'-value'} style={(e.id == 2) ? {maxWidth : '40px',display : 'inline-block',marginRight: '5px',marginBottom: '5px'} : {display : 'inline-block',marginRight: '5px'}}>
+                                            <span style={(e.id == 2) ? {background : e2.value} : {}} className={classFilter} onClick={(event) => this.changeFilter(event,{id : e2.option_id,value : e2.value_id})}>{e.id == 2 ? '' : e2.value}</span>
+                                        </li>
+                                    )
                                 }
                             })}
                         </ul>

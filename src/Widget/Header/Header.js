@@ -32,7 +32,7 @@ class Header extends React.Component {
           (result) => {
             this.setState({
               menus : result.map((item,index)=>
-                <li key={index}><NavLink to={"category/"+item.route}>{item.name}</NavLink></li>
+                <li key={index}><NavLink to={"/category/"+item.route}>{item.name}</NavLink></li>
               )
             })
           },
