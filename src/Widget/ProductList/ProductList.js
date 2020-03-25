@@ -20,9 +20,7 @@ class ProductList extends React.Component {
         }
     }
     componentWillMount() {
-        this._isMounted = true;
-        console.log('componentWillMount','loadData')
-        this.loadData()
+       this.loadData()
     }
     loadData(){
         let image = [];
@@ -40,7 +38,6 @@ class ProductList extends React.Component {
                 if(this.props.option.option.paginate == null){
                     product = result.product                    
                 }else{
-                    
                     for(let i=1;i<=result.product.last_page;i++){
                         page_xhtml.push(                            
                             <div key={i} className={(Helper.getQueryParams('page') == i || (Helper.getQueryParams('page') == null && i==1)) ? 'page activePage' : 'page'}>
@@ -75,7 +72,7 @@ class ProductList extends React.Component {
                        
                     })
                 }
-
+                
                 this.setState({product : product_xhtml})
             },
             (error) => {
@@ -86,10 +83,9 @@ class ProductList extends React.Component {
             }
           )
     }
-    async componentWillReceiveProps(nextProps) {
+    async componentWillReceiveProps(nextProps,prevState) {
         let page = Helper.getQueryParams('page')        
         let option = {...this.props.option.option};
-        console.log(nextProps.filter);
         if(!$.isEmptyObject(nextProps.filter)){
             let filter = nextProps.filter;
             let option_id = [];
@@ -117,7 +113,6 @@ class ProductList extends React.Component {
             option['whereIn'] = {...option['whereIn'],...{'option_product.option_value' : option_id,'option_product.option_id' : option_value}}
         }
         let _option = {option : option}
-        console.log(option)
         await this.setState({
             product : [],
             option : _option,
