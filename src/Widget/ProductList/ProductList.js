@@ -53,26 +53,29 @@ class ProductList extends React.Component {
                     })
                     product = result.product.data;
                 }
-                product.map((e,index) => {
-                    product_xhtml.push(
-                            <div key={index+e.id} className="home-product-col">
-                                <Product 
-                                    key={index}
-                                    product = {e}
-                                    images={image[e.id]} 
-                                    id={e.id} 
-                                    price={e.price} 
-                                    brand={e.brand_name} 
-                                    brand_route={e.brand_route}
-                                    category={e.category_name} 
-                                    category_route={e.category_route} 
-                                    route={e.route} 
-                                    small = {this.props.small == null || this.props.small == false ? false : true}
-                                    name={e.name} />
-                            </div>
-                    )
-                   
-                })
+                if(product != null){
+                    product.map((e,index) => {
+                        product_xhtml.push(
+                                <div key={index+e.id} className="home-product-col">
+                                    <Product 
+                                        key={index}
+                                        product = {e}
+                                        images={image[e.id]} 
+                                        id={e.id} 
+                                        price={e.price} 
+                                        brand={e.brand_name} 
+                                        brand_route={e.brand_route}
+                                        category={e.category_name} 
+                                        category_route={e.category_route} 
+                                        route={e.route} 
+                                        small = {this.props.small == null || this.props.small == false ? false : true}
+                                        name={e.name} />
+                                </div>
+                        )
+                       
+                    })
+                }
+
                 this.setState({product : product_xhtml})
             },
             (error) => {

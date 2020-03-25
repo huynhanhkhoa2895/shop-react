@@ -115,7 +115,6 @@ class ProductView extends React.Component {
         }
     }
     render() {
-        console.log(this.state.option)
 
         if(Object.keys(this.state.product).length !== 0){
             return ( 

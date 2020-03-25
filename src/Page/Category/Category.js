@@ -11,6 +11,7 @@ class Category extends React.Component {
           info : {},
           table : {},
           filter : 1,
+          option : {},
           page : queryString.parse(this.props.location.search).page == null ? null : queryString.parse(this.props.location.search).page
         }
         this.changeFilter = this.changeFilter.bind(this)
@@ -27,7 +28,26 @@ class Category extends React.Component {
                 info : result.info,
                 table : result.table
               })
-                
+              let option = 
+              {
+                page : this.state.page,
+                option : {
+                  order : {"product.created_at" : "desc"},
+                  route : {...this.state.info,table : this.state.table},
+                  leftJoin : this.state.table == 'group' ? [
+                    {
+                      table : this.state.table+'_detail',
+                      on1 : this.state.table+'_detail.product_id',
+                      on2 : 'product.id'
+                    }
+                  ] : [],
+                  paginate : 8,
+                }
+              }
+              console.log(option);
+              this.setState({
+                option : option
+              })
             },
             (error) => {
               this.setState({
@@ -38,9 +58,8 @@ class Category extends React.Component {
           )
       }
     render() {
-        let {info} = this.state
         let xhtml = <></>
-        console.log("route",this.state.route)
+        console.log('option',this.state.option);
         if(!$.isEmptyObject(this.state.table)){
           xhtml = 
           <div className="container-fluid" style={{paddingTop : "30px"}}>
@@ -53,7 +72,7 @@ class Category extends React.Component {
                   <h3>{this.state.info.name}</h3>
                 </div>
                 <div className="product-list-category w100">
-                  <ProductList filter={this.state.filter} option={{page : this.state.page,option : {order : {"product.created_at" : "desc"},route : {...this.state.info,table : this.state.table},leftJoin : [{table : this.state.table+'_detail', on1 : this.state.table+'_detail.product_id',on2 : 'product.id'}],paginate : 8, where : {[this.state.table+'_detail.group_id'] : this.state.info.id}}}} />
+                  <ProductList filter={this.state.filter} option={this.state.option} />
                 </div>
               </div>
             </div>

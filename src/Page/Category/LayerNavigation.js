@@ -62,7 +62,6 @@ class LayerNavigation extends React.Component {
             }else{
                 classFilter = "filter-item"
             }
-            console.log(classFilter)
             xhtml.push(
                 <div key={key+'-filter'} className="filter-container">
                     <div className="filter-title"><span>{e.name}</span></div>
