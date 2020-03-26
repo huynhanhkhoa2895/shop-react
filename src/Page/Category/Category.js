@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import LayerNavigation from './LayerNavigation';
 import './Category.css';
 import ProductList from '../../Widget/ProductList/ProductList'
@@ -17,10 +17,15 @@ class Category extends React.Component {
         }
         this.changeFilter = this.changeFilter.bind(this)
         this.loadData = this.loadData.bind(this)
+        this.useHook();
     }
     async changeFilter(filter){
       await this.setState({filter : filter})
     }
+    useHook(){
+
+    }
+    // useEffect(){}
     componentDidMount() {
       this.loadData()
     }
@@ -65,14 +70,17 @@ class Category extends React.Component {
       )
     }
     async componentWillReceiveProps(nextProps,nextState){
+      console.log("componentWillReceiveProps")
       if(this.props.match.params.route != nextProps.match.params.route){
         await this.setState({
           route : nextProps.match.params.route
         })
         this.loadData()
+        console.log("end componentWillReceiveProps")
       }
     }
     render() {
+        console.log("render")
         console.log("Category",this.state.option)
         let xhtml = <></>
         if(!$.isEmptyObject(this.state.table) && !$.isEmptyObject(this.state.option)){
