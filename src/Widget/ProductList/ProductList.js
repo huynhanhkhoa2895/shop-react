@@ -86,6 +86,7 @@ class ProductList extends React.Component {
     async componentWillReceiveProps(nextProps,prevState) {
         let page = Helper.getQueryParams('page')        
         let option = {...this.props.option.option};
+        console.log(nextProps)
         if(!$.isEmptyObject(nextProps.filter)){
             let filter = nextProps.filter;
             let option_id = [];
