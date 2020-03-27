@@ -26,7 +26,7 @@ class Header extends React.Component {
     componentDidMount() {
       this.setState({sticky : document.getElementById("navbar").offsetTop})
       this.onSticky();
-      fetch("http://127.0.0.1:3000/api/v1/getHeaderMenu")
+      fetch(Helper.apiUrl()+"api/v1/getHeaderMenu")
         .then(res => res.json())
         .then(
           (result) => {

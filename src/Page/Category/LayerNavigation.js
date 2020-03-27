@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery'
+import Helper from '../../lib/Helper'
 class LayerNavigation extends React.Component {
     constructor(props){
         super(props);
@@ -13,7 +14,7 @@ class LayerNavigation extends React.Component {
         this.loadFilter = this.loadFilter.bind(this);
     }
     componentWillMount() {
-        fetch("http://127.0.0.1:3000/api/v1/getListOptionFilter")
+        fetch(Helper.apiUrl()+"api/v1/getListOptionFilter")
           .then(res => res.json())
           .then(
             (result) => {

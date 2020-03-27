@@ -26,7 +26,7 @@ class ProductList extends React.Component {
         let image = [];
         let page_xhtml = [];
         let product_xhtml = [];
-        fetch("http://127.0.0.1:3000/api/v1/product/list?" + $.param( this.state.option ) + this.state.page)
+        fetch(Helper.apiUrl()+"api/v1/product/list?" + $.param( this.state.option ) + this.state.page)
           .then(res => res.json())
           .then(
             (result) => {                

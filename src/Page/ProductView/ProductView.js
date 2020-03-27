@@ -23,7 +23,7 @@ class ProductView extends React.Component {
     componentWillMount() {
         let arrImg = [];
         let arrOption = [];
-        fetch("http://127.0.0.1:3000/api/v1/product/view/"+this.props.match.params.route)
+        fetch(Helper.apiUrl()+"api/v1/product/view/"+this.props.match.params.route)
         .then(res => res.json())
         .then(
           (result) => {

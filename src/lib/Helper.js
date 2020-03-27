@@ -13,6 +13,9 @@ class Helpers {
         let queryString = reg.exec(href);
         return queryString ? queryString[1] : null;
       };
+    static apiUrl(){
+        return "http://laravel.sega-group.com/";
+    }
 }
 
 export default Helpers;

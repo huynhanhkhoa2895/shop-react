@@ -4,6 +4,7 @@ import './Category.css';
 import ProductList from '../../Widget/ProductList/ProductList'
 import $ from 'jquery'
 import queryString from 'query-string';
+import Helper from '../../lib/Helper'
 class Category extends React.Component {
     constructor(props){
         super(props);
@@ -25,8 +26,7 @@ class Category extends React.Component {
       this.loadData()
     }
     loadData(){
-      console.log("loadData",this.state.route)
-      fetch("http://127.0.0.1:3000/api/v1/category/"+this.state.route)
+      fetch(Helper.apiUrl()+"api/v1/category/"+this.state.route)
       .then(res => res.json())
       .then(
         (result) => {
