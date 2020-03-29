@@ -14,6 +14,9 @@ body,html{
 .w100{
   width: 100%;
 }
+.ls01{
+  letter-spacing: 0.1em;
+}
 a{
   text-decoration: none
 }
@@ -41,6 +44,9 @@ button:focus {
 }
 .clear{
   clear: both;
+}
+.f12{
+  font-size: 12px;
 }
 .f16{
   font-size: 16px;
@@ -75,8 +81,15 @@ button:focus {
 .background{
   background : #f3a839
 }
+input{
+  border-color: #ccc;
+}
 input:focus{
   outline: unset
+}
+.form-control:focus{
+  border-color : #ccc !important;
+  box-shadow: unset !important;
 }
 .filter-size {
   height: 30px;

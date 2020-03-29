@@ -16,6 +16,9 @@ class Helpers {
     static apiUrl(){
         return "http://laravel.sega-group.com/";
     }
+    static apiUrlLocal(port=3000){
+        return "http://127.0.0.1:"+port+"/";
+    }
 }
 
 export default Helpers;

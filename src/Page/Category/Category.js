@@ -76,30 +76,29 @@ class Category extends React.Component {
           route : nextProps.match.params.route
         })
         this.loadData()
-        console.log("end componentWillReceiveProps")
       }
     }
     render() {
-        console.log("render")
-        console.log("Category",this.state.option)
         let xhtml = <></>
         if(!$.isEmptyObject(this.state.table) && !$.isEmptyObject(this.state.option)){
-          xhtml = 
-          <div className="container-fluid" style={{paddingTop : "30px"}}>
-            <div className="row w100">
-              <div className="col-md-2">
-                <LayerNavigation changeFilter={this.changeFilter} />
-              </div>
-              <div className="col-md-10 pd0">
-                <div className="product-list-title">
-                  <h3>{this.state.info.name}</h3>
+          if(this.state.option.option.route.route == this.props.match.params.route){
+            xhtml = 
+            <div className="container-fluid" style={{paddingTop : "30px"}}>
+              <div className="row w100">
+                <div className="col-md-2">
+                  <LayerNavigation changeFilter={this.changeFilter} />
                 </div>
-                <div className="product-list-category w100">
-                  <ProductList filter={this.state.filter} option={this.state.option} />
+                <div className="col-md-10 pd0">
+                  <div className="product-list-title">
+                    <h3>{this.state.info.name}</h3>
+                  </div>
+                  <div className="product-list-category w100">
+                    <ProductList filter={this.state.filter} option={this.state.option} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          }
         }
         return (    
           <>      

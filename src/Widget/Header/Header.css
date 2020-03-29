@@ -1,11 +1,13 @@
 header{
     height: 50px;
+    margin-bottom: 20px;
 }
 #navbar{
     background-color: #f3a839;
 }
 #navbar ul.header-list>li>a{
     color: #fff;
+    letter-spacing: 0.1em;
 }
 #navbar.sticky {
     position: fixed;
@@ -91,7 +93,7 @@ header{
     }
     .header-container ul.header-list>li{
         display: inline-block;
-        margin-right: 10px;
+        margin-right: 15px;
     }
     .header-container ul.header-list>li a{
         font-size: 18px;

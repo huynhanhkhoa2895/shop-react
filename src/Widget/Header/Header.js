@@ -132,7 +132,7 @@ class Header extends React.Component {
                     </div>
                   </div>
                 </li>
-                <li style={{marginRight : "20px",cursor : "pointer"}}><FontAwesomeIcon icon={faUser} color="#fff"/></li>
+                <li style={{marginRight : "20px",cursor : "pointer"}}><Link to="/customer/login.html" style={{fontSize : '12px'}}><FontAwesomeIcon icon={faUser} color="#fff"/></Link></li>
               </ul>
             </div>
           </header>

@@ -14,7 +14,7 @@ class Footer extends React.Component {
             <footer>
                 <div className="row email-subcrise">
                     <div className="col-md-2 offset-md-3" style={{paddingTop : "20px"}}>
-                        <span style={{color : "#fff"}}>LIÊN HỆ EMAIL VỚI CHÚNG TÔI</span>
+                        <span className="f16" style={{color : "#fff"}}>LIÊN HỆ CHÚNG TÔI QUA EMAIL</span>
                     </div>
                     <div className="col-md-6" style={{paddingTop : "10px"}}>
                         <div>

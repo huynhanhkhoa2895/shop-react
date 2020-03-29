@@ -1,0 +1,19 @@
+.box-login{
+    border: 1px solid #ccc;
+    width: 100%;
+    min-height: 350px;
+    padding: 30px;
+}
+.box-login .btn-in-box-login{
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 2px solid #f3a839;
+    color: #f3a839;
+    text-transform: uppercase;
+    width: max-content;
+    background: #fff;
+    letter-spacing: 0.1em;
+}
