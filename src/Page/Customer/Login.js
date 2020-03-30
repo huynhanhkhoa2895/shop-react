@@ -19,7 +19,7 @@ class Login extends React.Component {
       }
     
       handleSubmit(event) {
-        axios.post(Helper.apiUrlLocal()+"api/v1/login",JSON.stringify({email : "a8515895@gmail.com",password : 123456}),{
+        axios.post(Helper.apiUrlLocal()+"api/v1/login",JSON.stringify({email : "customer@gmail.com",password : 6543217}),{
             headers: {
                 'Content-Type' : 'application/json',
                 "Access-Control-Allow-Origin" : "*",
@@ -28,8 +28,11 @@ class Login extends React.Component {
                 // 'Origin' : Helper.apiUrlLocal()
             }
             // headers: headers,
-        }).then(reponse=>console.log(reponse))
-        // axios(Helper.apiUrlLocal(),{email : "a8515895@gmail.com",password : 123456},request).then(response => console.log(response))
+        })
+        .then(reponse=>{
+            let result = reponse.data;
+            console.log(result);
+        })
         event.preventDefault();
       }
     render(){

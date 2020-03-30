@@ -35,7 +35,6 @@ class Category extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log("fetch data success",this.state.route)
           this.setState({
             info : result.info,
             table : result.table
@@ -90,7 +89,7 @@ class Category extends React.Component {
                 </div>
                 <div className="col-md-10 pd0">
                   <div className="product-list-title">
-                    <h3>{this.state.info.name}</h3>
+                    <h3 className="colorGrey">{this.state.info.name}</h3>
                   </div>
                   <div className="product-list-category w100">
                     <ProductList filter={this.state.filter} option={this.state.option} />

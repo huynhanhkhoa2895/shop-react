@@ -13,7 +13,7 @@
     border: 2px solid #f3a839;
     color: #f3a839;
     text-transform: uppercase;
-    width: max-content;
+    max-width: max-content;
     background: #fff;
     letter-spacing: 0.1em;
 }
