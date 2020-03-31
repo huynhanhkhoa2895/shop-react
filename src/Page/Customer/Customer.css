@@ -1,5 +1,5 @@
 .box-login{
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     width: 100%;
     min-height: 350px;
     padding: 30px;
@@ -24,8 +24,9 @@
     font-weight: 700;
     background: #e4e4e4;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
-.box-login .login-loading{
+.box-login .login-loading,.box-register .login-loading{
     width: calc(100% - 30px);
     height: 100%;
     position: absolute;
@@ -36,4 +37,26 @@
     z-index: 2;
     text-align: center;
     padding-top: calc(50% / 2);
+}
+
+.box-register{
+    border: 2px solid #ccc;
+    width: 100%;
+    min-height: 350px;
+    padding: 30px;
+    border-radius: 6px;
+}
+.box-register .btn-in-box-register{
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 2px solid #f3a839;
+    color: #f3a839;
+    text-transform: uppercase;
+    max-width: max-content;
+    background: #fff;
+    letter-spacing: 0.1em;
+    position: relative;
 }

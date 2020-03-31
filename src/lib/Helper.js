@@ -19,6 +19,10 @@ class Helpers {
     static apiUrlLocal(port=3000){
         return "http://127.0.0.1:"+port+"/";
     }
+    static validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        re.test(email);
+    }
 }
 
 export default Helpers;

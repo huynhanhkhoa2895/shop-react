@@ -5,6 +5,7 @@ import Helper from '../../lib/Helper'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle,faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {setCookie,getCookie} from '../../Widget/Cookie/Cookie.js'
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -75,9 +76,10 @@ class Login extends React.Component {
                         error : xhtml_err
                     })
                 }else{
-    
+                    setCookie("customer",result.user)
+                    setCookie("token",result.token)
+                    this.props.history.push('/customer')
                 }
-                console.log(result);
             })
         }
       }
@@ -96,7 +98,7 @@ class Login extends React.Component {
                             <p>
                                 Bằng cách tạo tài khoản với cửa hàng của chúng tôi, bạn sẽ có thể chuyển qua quy trình thanh toán nhanh hơn, lưu trữ nhiều địa chỉ giao hàng, xem và theo dõi đơn hàng của bạn trong tài khoản của bạn và hơn thế nữa.
                             </p>
-                            <Link className="btn-in-box-login" to="/customer/register">Đăng ký khách hàng mới</Link>
+                            <Link className="btn-in-box-login" to="/customer/register.html">Đăng ký khách hàng mới</Link>
                         </div>
                     </div>
                     <div className="col-md-3">
