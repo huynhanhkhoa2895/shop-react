@@ -3,37 +3,83 @@ import './Customer.css';
 import { Link } from 'react-router-dom';
 import Helper from '../../lib/Helper' 
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle,faSpinner } from '@fortawesome/free-solid-svg-icons'
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                valueName: '',
-                valuePass: ''
+                valueEmail: '',
+                valuePass: '',
+                error : null,
+                loading : false,
             };
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
       handleChange(event) {
-        this.setState({value: event.target.value});
+        if(event.target.name == 'email'){
+            this.setState({
+                valueEmail : event.target.value
+            })
+        }
+        if(event.target.name == 'password'){
+            this.setState({
+                valuePass : event.target.value
+            })
+        }
+        // this.setState({value: event.target.value});
       }
     
-      handleSubmit(event) {
-        axios.post(Helper.apiUrlLocal()+"api/v1/login",JSON.stringify({email : "customer@gmail.com",password : 6543217}),{
-            headers: {
-                'Content-Type' : 'application/json',
-                "Access-Control-Allow-Origin" : "*",
-                "access-control-allow-origin" : "*",
-                "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
-                // 'Origin' : Helper.apiUrlLocal()
-            }
-            // headers: headers,
-        })
-        .then(reponse=>{
-            let result = reponse.data;
-            console.log(result);
-        })
+      async handleSubmit(event) {
         event.preventDefault();
+        console.log(this.state.valueEmail,this.state.valuePass)
+        if(this.state.valueEmail == '' || this.state.valuePass == ''){
+            let xhtml_err = <div className="col-12 error-message"><FontAwesomeIcon icon={faExclamationTriangle} /> Mời bạn ghi đầy đủ thông tin</div>;
+            this.setState({
+                error : xhtml_err
+            })
+            event.preventDefault();
+        }else{
+            await this.setState({
+                loading : true
+            })
+            await axios.post(Helper.apiUrlLocal()+"api/v1/login",JSON.stringify({email : this.state.valueEmail,password : this.state.valuePass}),{
+                headers: {
+                    'Content-Type' : 'application/json',
+                    "Access-Control-Allow-Origin" : "*",
+                    "access-control-allow-origin" : "*",
+                    "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
+                    // 'Origin' : Helper.apiUrlLocal()
+                }
+                // headers: headers,
+            })
+            .then(reponse=>{
+                let result = reponse.data;
+                this.setState({
+                    error : null,
+                    loading : false
+                })
+                if(result.status == 0){
+                    let xhtml_err = [];
+                    result.msg.map((e,k)=>{
+                            xhtml_err.push(
+                                <div key={"msg_"+k} className="col-12 error-message">
+                                    <FontAwesomeIcon icon={faExclamationTriangle} /> {e}
+                                </div>
+                            )
+                        }
+                    )
+                    this.setState({
+                        error : xhtml_err
+                    })
+                }else{
+    
+                }
+                console.log(result);
+            })
+        }
       }
     render(){
         return(
@@ -55,16 +101,22 @@ class Login extends React.Component {
                     </div>
                     <div className="col-md-3">
                         <div className="box-login">
+                            <div className={(this.state.loading) ? "login-loading block" : "login-loading none"}>
+                                <FontAwesomeIcon icon={faSpinner} spin size="4x"/>
+                            </div>
                             <h3 className="color">Đăng Nhập</h3>
-                            <p>Nếu bạn đã có tài khoản xin hãy đăng nhập</p>
+                            <p style={{margin : 0}}>Nếu bạn đã có tài khoản xin hãy đăng nhập</p>
+                            <div className={(this.state.error) ? 'row block' : 'row none'}>
+                                {this.state.error}
+                            </div>
                             <form onSubmit={this.handleSubmit} method="POST">
                                 <div className="form-group">
                                     <label className="b" >Email</label>
-                                    <input type="email" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" value={this.state.valueName} />
+                                    <input type="email" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" value={this.state.valueName} onChange={this.handleChange}/>
                                 </div>
                                 <div className="form-group">
                                     <label className="b">Password</label>
-                                    <input type="password" className="form-control" id="exampleInputPassword" name="password" value={this.state.valuePass} />
+                                    <input type="password" className="form-control" id="exampleInputPassword" name="password" value={this.state.valuePass} onChange={this.handleChange}/>
                                 </div>
                                 <div className="form-group">
                                     <button className="btn-in-box-login" type="submit" >Đăng nhập</button>
