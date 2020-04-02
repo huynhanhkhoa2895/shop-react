@@ -1,0 +1,27 @@
+.td-product{
+    clear: both;
+}
+.td-product .product-image{
+    width: 100px;
+    height: 150px;
+    overflow: hidden;
+    float: left;
+    margin-right: 10px;
+}
+.td-product .product-image img{
+    width: 100%;
+}
+.td-product .product-name{
+    float: left;
+}
+.td-product .product-name a{
+    color : #f3a839;
+    font-size : 16px
+}
+.box-info-price{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-height: 300px;
+    max-width: 370px;
+}

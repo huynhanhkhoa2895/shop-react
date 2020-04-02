@@ -67,6 +67,7 @@ class Header extends React.Component {
     updateItemInCart(product,qty){
       this.props.updateItemInCart(product,qty);
     }
+    
     setTemplateMinicart(){
       if($.isEmptyObject(this.props.carts)){
         return <div style={{marginTop : "100px", textAlign : "center"}}><span className="colorGrey f20">Không Có Sản Phẩm Nào</span></div>
@@ -100,7 +101,7 @@ class Header extends React.Component {
           </div>
           <div className="row">
             <div className="col-md-6 offset-md-6">
-              <Link to={"/checkout/"} className="btn-checkout-minicart">Vào giỏ hàng</Link>
+              <Link to={"/checkout/cart"} className="btn-checkout-minicart">Vào giỏ hàng</Link>
             </div>
           </div>
           </>
@@ -127,7 +128,7 @@ class Header extends React.Component {
                     <div className="minicart-product">
                       {this.setTemplateMinicart(carts)}
                     </div>
-                    <div className="minicart-info">
+                    <div className={(carts.length == 0) ? "minicart-info none" : "minicart-info block"}>
                       {this.setTemplateMinicartInfo(carts)}
                     </div>
                   </div>

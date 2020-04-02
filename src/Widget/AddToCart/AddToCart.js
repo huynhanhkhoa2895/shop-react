@@ -7,7 +7,7 @@ class AddToCart extends React.Component {
         this.AddCart = this.AddCart.bind(this)
     }
     AddCart(){
-        this.props.AddCart({product : this.props.product,qty : this.props.qty,img : this.props.img})
+        this.props.AddCart({product : this.props.product,qty : this.props.qty,img : this.props.img,option : this.props.option})
         this.props.openPopup()
     }
     render() {

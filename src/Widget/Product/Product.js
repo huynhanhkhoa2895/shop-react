@@ -71,7 +71,7 @@ class Product extends React.Component {
                     </div>
                     <div className="product-add-to-cart text-center">
                         <div style={{maxWidth : '150px',margin : 'auto'}}>
-                            <AddToCart product={this.props.product} qty={this.state.qty == null ? 1 : this.state.qty} img={this.state.images}/>
+                            <AddToCart product={this.props.product} qty={this.state.qty == null ? 1 : this.state.qty} img={this.state.images} option={null} />
                         </div>
                     </div>
                 </div>

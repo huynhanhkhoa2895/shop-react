@@ -7,9 +7,10 @@ const carts = (state = defaultState, action) => {
         case 'ADD_TO_CART':
             let product = action.product.product;
             let qty = action.product.qty;
+            let option = action.product.option;
             let img = action.product.img == null || action.product.img.length == 0 ? ["no-image.png"] : action.product.img;            
             if(state.length == 0){
-                state.push({id: product.id,product : product,qty : qty,img : img})
+                state.push({id: product.id,product : product,qty : qty,img : img,option : option})
             }else{
                 let checkHaveProduct = false;
                 let arr = state;
@@ -21,7 +22,7 @@ const carts = (state = defaultState, action) => {
                     }                    
                 });
                 if(!checkHaveProduct){
-                    arr.push({id: product.id,product : product,qty : qty,img : img})
+                    arr.push({id: product.id,product : product,qty : qty,img : img,option : option})
                 }
                 state = arr;
             }            
@@ -42,7 +43,6 @@ const carts = (state = defaultState, action) => {
                     return;
                 }
             })
-            console.log(arr);
             state = arr;
             setCookie('cart',state)
             return [...state];

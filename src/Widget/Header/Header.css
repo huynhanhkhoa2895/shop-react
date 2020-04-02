@@ -27,11 +27,12 @@ header{
 .minicart .minicart-product{
     height: 300px;
     overflow: auto;
-    border-bottom: 1px solid #444;
 }
 .minicart .minicart-info{
     height: 110px;
     font-size: 14px;
+    border-top: 1px solid #444;
+
 }
 .minicart .minicart-box{
     height: 130px;

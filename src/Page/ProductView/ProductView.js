@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus,faMinus } from '@fortawesome/free-solid-svg-icons'
 import ProductList from '../../Widget/ProductList/ProductList.js';
 import Helper from '../../lib/Helper'
+import {remove} from 'lodash'
 class ProductView extends React.Component {
     constructor(props){
         super(props);
@@ -15,37 +16,47 @@ class ProductView extends React.Component {
             mainImg : '',
             smallImg : [],
             images : [],
-            option : [],
+            option_xhtml : [],
+            option_product : [],
             qty : 1,
         }
-        this.chooseOption = this.chooseOption.bind(this)
+        // this.chooseOption = this.chooseOption.bind(this)
     }
-    componentWillMount() {
+    componentDidMount() {
         let arrImg = [];
         let arrOption = [];
+        let arrImgName = [];
         fetch(Helper.apiUrl()+"api/v1/product/view/"+this.props.match.params.route)
         .then(res => res.json())
         .then(
           (result) => {
+              console.log(result)
               if(result.product.length === 0){                  
                 return <Redirect to="not-found.html" />
               }else{
                   this.setState({
                     mainImg : result.image[0].name,
-                    images : result.image,
+                   
                     product : result.product,
-                    option : []
+                    option_xhtml : []
                   })
                   
-                  this.state.images.map((e,index)=>{       
+                  result.image.map((e,index)=>{   
+                    arrImgName.push(e.name)    
                     arrImg.push(
                           <div key={index+'img'} onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
                               <img src={window.location.origin + '/product/' + e.name} alt={this.props.name} />
                           </div>
                       )     
                   })
+                  this.setState({
+                      images : arrImgName,
+                  })
                   let classFilter = "";
+                  let xhtml_option_item = [];
+                  console.log(result.option_product['option'])
                   Object.keys(result.option_product['option']).map((e,index)=>{
+                    xhtml_option_item = [...[]]
                     if(e == 1){
                         classFilter = 'filter-size'
                     }else if(e == 2){
@@ -53,20 +64,23 @@ class ProductView extends React.Component {
                     }else{
                         classFilter = ""
                     }
+                    
+                    result.option_product['value'].map((e2,k)=>{                         
+                        if(e2.option_id == e){    
+                            // option2.push(e2)                                        
+                            xhtml_option_item.push(
+                                <div  key={k} style={(e == 2) ? {maxWidth : '40px'} : {}} className="col">
+                                    <span onClick={(e3)=>(this.chooseOption(e3,{option_id : e2.option_id,option : e2,product : this.state.product.id}))} style={(e == 2) ? {background : e2.value} : {}} className={classFilter} >{e == 2 ? '' : e2.value}</span>
+                                </div>
+                            )
+                        }
+                    })
                     arrOption.push(
                         <div key={index+'option'} className="row">
                             <div className="col-md-12 f18 colorGrey pd0">{result.option_product['option'][e]}</div>
                             <div className="col-md-12">
                                 <div className="row">
-                                    {result.option_product['value'].map((e2,k)=>{
-                                        
-                                        if(e2.option_id == e){
-                                            return (
-                                                <div key={k} style={(e == 2) ? {maxWidth : '40px'} : {}} className="col">
-                                                    <span style={(e == 2) ? {background : e2.value} : {}} className={classFilter} onClick={this.chooseOption({[e2.option_id] :e2.value_id})}>{e == 2 ? '' : e2.value}</span>
-                                                </div>)
-                                        }
-                                    })}
+                                    {xhtml_option_item}
                                 </div>
                             </div>
                         </div>
@@ -83,10 +97,9 @@ class ProductView extends React.Component {
           }
         ).then(
             e => {
-                
                 this.setState({
                     smallImg : arrImg,
-                    option : arrOption
+                    option_xhtml : arrOption
                 })
             }
         )
@@ -98,8 +111,30 @@ class ProductView extends React.Component {
             mainImg : data.name,
         })
     }
-    chooseOption(id){
-        console.log(id)
+    async chooseOption(e,option){
+        let arrOption = [...this.state.option_product];
+        let isAdd = false;         
+        
+        if(!$(e.target).hasClass("active")){
+            $(e.target).addClass("active")
+            isAdd = true;
+        }else{
+            $(e.target).removeClass("active")
+            isAdd = false;
+        }
+        console.log(option)
+        if(isAdd){
+            arrOption.push(option);
+        }else{
+            remove(arrOption,(item)=>{
+                return item.option_id == option.option_id
+            })
+        }
+        await this.setState({
+            option_product : [...arrOption]
+        })
+        console.log(this.state.option_product)
+
     }
     changeQty(type){
         if(type === "plus"){
@@ -138,7 +173,7 @@ class ProductView extends React.Component {
                                 <p className="font-title f18" style={{color: "#f3a839"}}><b>{Helper.format_curency(this.state.product.price)} VND</b></p>
                             </div>
                             <div className="product-option" style={{marginBottom : '20px'}}>
-                                {this.state.option}
+                                {this.state.option_xhtml}
                             </div>
                             <div className="product-checkout">
                                 <div className="row">
@@ -150,7 +185,7 @@ class ProductView extends React.Component {
                                         </div>                                        
                                     </div>
                                     <div className="col-md-8">
-                                        <AddToCart product={this.state.product} qty={this.state.qty} img={this.state.images} />
+                                        <AddToCart product={this.state.product} qty={this.state.qty} img={this.state.images} option= {this.state.option_product}/>
                                     </div>
                                 </div>
                                 
