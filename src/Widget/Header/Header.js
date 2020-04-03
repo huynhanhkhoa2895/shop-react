@@ -121,6 +121,9 @@ class Header extends React.Component {
                 <li style={{marginRight : "20px",cursor : "pointer"}}><FontAwesomeIcon icon={faSearch} color="#fff"/></li>
                 <li style={{marginRight : "20px", position : 'relative'}} >
                   <FontAwesomeIcon icon={faShoppingCart} color="#fff" onClick={this.openMiniCart.bind(this)} style={{cursor : "pointer"}}/>
+                  <div className="popup-qty">
+                    <span className="block">{this.props.carts.length}</span>
+                  </div>
                   <div className="minicart" style={{display : this.props.minicart.openPopup ? 'block' : 'none'}}>
                     <div className="minicart-header">
                       <FontAwesomeIcon className="color" icon={faTimes} onClick={this.openMiniCart.bind(this)} style={{cursor : "pointer",display : 'block',fontSize : '18px',marginLeft : 'auto'}}/>                    
