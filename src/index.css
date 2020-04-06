@@ -26,11 +26,14 @@ a:hover{
 ul>li{
   list-style: none;
 }
+.relative{
+  position: relative;
+}
 .none{
-  display: none ;
+  display: none !important;
 }
 .block{
-  display: block;
+  display: block !important;
 }
 .wh100,.hw100{
   width: 100%;
@@ -38,6 +41,9 @@ ul>li{
 }
 .pd0{
   padding: 0 !important;
+}
+.pdr0{
+  padding-right: 0 !important;
 }
 .row{
   margin: 0;
@@ -78,8 +84,26 @@ button:focus {
 .right{
   float: right;
 }
+.mgl10{
+  margin-left: 10px;
+}
+.mgr10{
+  margin-right: 10px;
+}
+.mgb20{
+  margin-bottom: 20px;
+}
+.mgb10{
+  margin-bottom: 10px;
+}
+.pdb10{
+  padding-bottom: 10px;
+}
 .font-title{
   font-family: 'Hind', sans-serif;
+}
+a{
+  color: #f3a839;
 }
 .color{
   color : #f3a839
@@ -89,6 +113,9 @@ button:focus {
 }
 .fw500{
   font-weight: 500;
+}
+.lh1{
+  line-height: 1;
 }
 input:focus{
   outline: unset
@@ -147,4 +174,26 @@ input:focus{
 .alert-message.error *{
   color: red;
 }
+.loading{
+width: calc(100% - 30px);
+height: 100%;
+position: absolute;
+top: 0;
+left: 15px;
+background: #fff;
+opacity: 0.8;
+z-index: 2;
+text-align: center;
+}
+.loading .icon-loading{
+  margin-top: 50px;
+}
+.loading-all{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: #ffffffc2;
+  z-index: 100;
+}
+
 

@@ -6,14 +6,17 @@ import {setCookie,getCookie} from '../../Widget/Cookie/Cookie.js'
 import { Link } from 'react-router-dom';
 import Helpers from '../../lib/Helper';
 class Cart extends React.Component {
-    constructor(props){        
+    constructor(props){ 
+        const customer = getCookie("customer");       
         super(props);
         this.state = {
             cart : this.props.carts,
             xhtml_cart : [],
             isAccept : false,
             errorMessage : false,
+            customer : customer == null ? null : customer
         }
+        console.log(customer);
         if(getCookie('cart') == null || $.isEmptyObject(getCookie('cart')) || this.state.cart.length == 0){
             this.props.history.push('/')
         }
@@ -50,7 +53,16 @@ class Cart extends React.Component {
         })
     }
     goToPayment(){
-        if(this.state.isAccept)this.props.history.push('/checkout/payment')
+        if(this.state.isAccept){
+
+            if(this.state.customer == null){
+                setCookie("error_login",JSON.stringify({redirect : '/checkout/payment',msg : "Bạn phải đăng nhập để tiếp tục mua hàng"}))
+                this.props.history.push('/customer/login.html')
+            }else{
+                this.props.history.push('/checkout/payment')
+            }
+            
+        }
         else {
             $(".alert-message").addClass("error")
             this.setState({
@@ -97,7 +109,6 @@ class Cart extends React.Component {
                                 <div className="col f12">
                                     <div className="form-group">
                                         <div className="left" style={{paddingTop : 3,marginRight : 10}}>
-                                            {/* <Checkbox  checked={this.state.isAccept} onChange={this.AcceptPrivacy}/> */}
                                             <input type="checkbox" defaultChecked={this.state.isAccept} name="privacy" onChange={this.AcceptPrivacy}/>
                                         </div>
                                         <div className="left alert-message ">

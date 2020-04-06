@@ -5,19 +5,25 @@ import Helper from '../../lib/Helper'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle,faSpinner } from '@fortawesome/free-solid-svg-icons'
-import {setCookie,getCookie} from '../../Widget/Cookie/Cookie.js'
+import {setCookie,getCookie,removeCookie} from '../../Widget/Cookie/Cookie.js'
+import {connect} from 'react-redux';
 class Login extends React.Component {
+    
     constructor(props) {
         super(props);
+        const error_login = JSON.parse(getCookie('error_login'))
         this.state = {
                 valueEmail: '',
                 valuePass: '',
-                error : null,
+                redirect_login : error_login == null ? null : error_login.redirect,
+                error : error_login == null ? null : <div className="col-12 error-message"><FontAwesomeIcon icon={faExclamationTriangle} />{error_login.msg}</div>,
                 loading : false,
             };
-    
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+      }
+      componentDidMount(){
+          removeCookie("error_login")
       }
       handleChange(event) {
         if(event.target.name == 'email'){
@@ -35,7 +41,6 @@ class Login extends React.Component {
     
       async handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.valueEmail,this.state.valuePass)
         if(this.state.valueEmail == '' || this.state.valuePass == ''){
             let xhtml_err = <div className="col-12 error-message"><FontAwesomeIcon icon={faExclamationTriangle} /> Mời bạn ghi đầy đủ thông tin</div>;
             this.setState({
@@ -78,7 +83,8 @@ class Login extends React.Component {
                 }else{
                     setCookie("customer",result.user)
                     setCookie("token",result.token)
-                    this.props.history.push('/customer')
+                    this.props.login();
+                    this.props.history.push(this.state.redirect_login == null ? '/customer' : this.state.redirect_login)
                 }
             })
         }
@@ -131,4 +137,16 @@ class Login extends React.Component {
         );
     }
 }
-export default Login;
+const mapStateToProps = state => {
+    return {
+      verify: state.isLogin,
+    }
+  }
+  const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        login : ()=>{
+            dispatch({type : 'LOGIN'})
+          },
+    }
+}
+  export default connect(mapStateToProps, mapDispatchToProps)(Login);

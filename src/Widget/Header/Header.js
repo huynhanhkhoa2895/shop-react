@@ -16,15 +16,18 @@ class Header extends React.Component {
         templateMinicart : null,  
         popup : true,
         carts : null,
-        input : {}
+        input : {},
+        displayPopupUser : false
       };
       this.setTemplateMinicart = this.setTemplateMinicart.bind(this)
       this.setTemplateMinicartInfo = this.setTemplateMinicartInfo.bind(this)
       this.removeItemInCart = this.removeItemInCart.bind(this);
-      this.updateItemInCart = this.updateItemInCart.bind(this)
+      this.updateItemInCart = this.updateItemInCart.bind(this);
+      this.handleClickOutside = this.handleClickOutside.bind(this);
     }
     componentDidMount() {
       this.setState({sticky : document.getElementById("navbar").offsetTop})
+      document.addEventListener('mousedown', this.handleClickOutside);
       this.onSticky();
       fetch(Helper.apiUrl()+"api/v1/getHeaderMenu")
         .then(res => res.json())
@@ -44,6 +47,16 @@ class Header extends React.Component {
           }
         )
     }
+    componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+    handleClickOutside(event) {
+      if($(event.target).closest(".header-is-login").length == 0){
+        this.setState({
+          displayPopupUser : false
+        })
+      }
+    }  
     onSticky(){
       window.onscroll = () => {this.sticky()};
     }
@@ -109,12 +122,47 @@ class Header extends React.Component {
       }
       return xhtml;
     }
+    openUserPopup(){
+
+      this.setState({
+        displayPopupUser : !this.state.displayPopupUser
+      })
+    }
+    setTemplateUser(){
+      let xhtml = [];
+      if(this.props.verify.isLogin){
+        xhtml = 
+          <li className="relative" style={{marginRight : "20px",cursor : "pointer"}}>
+            <div onClick={()=>this.openUserPopup()}>
+              <FontAwesomeIcon icon={faUser} color="#fff"/>
+            </div>
+            <ul className={"header-is-login "+ (this.state.displayPopupUser ? "block" : "none")} >
+              <li><Link to={"/customer/info"}>Thông tin cá nhân</Link></li>
+              <li><Link to={"/customer/order"}>Lịch sử đơn hàng</Link></li>
+              <li><Link to={"/customer/address"}>Sổ địa chỉ</Link></li>
+              <hr/>
+              <li><Link to={"/customer/logout"}>Đăng xuất</Link></li>
+            </ul>
+          </li>
+      }else{
+        xhtml = <li style={{marginRight : "20px",cursor : "pointer"}}><Link to="/customer/login.html" style={{fontSize : '12px'}}><FontAwesomeIcon icon={faUser} color="#fff"/></Link></li>
+      }
+      return xhtml
+    }
     render() {
       let {carts} = this.props;
+      let {verify} = this.props;
       return (
           <header id="navbar">
             <div className="header-container">
               <ul className="header-list left">
+                <li>
+                  <div style={{overflow : "hidden"}}>
+                    <NavLink to={"/"}>
+                      <img src={"/NL.png"} alt="logo" width="25px"/>
+                    </NavLink>
+                  </div>
+                </li>
                 {this.state.menus}
               </ul>
               <ul className="header-list right">
@@ -136,7 +184,7 @@ class Header extends React.Component {
                     </div>
                   </div>
                 </li>
-                <li style={{marginRight : "20px",cursor : "pointer"}}><Link to="/customer/login.html" style={{fontSize : '12px'}}><FontAwesomeIcon icon={faUser} color="#fff"/></Link></li>
+                {this.setTemplateUser(verify)}
               </ul>
             </div>
           </header>
@@ -146,7 +194,8 @@ class Header extends React.Component {
 const mapStateToProps = state => {
   return {
     carts: state.carts,
-    minicart: state.minicart
+    minicart: state.minicart,
+    verify : state.verify,
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {

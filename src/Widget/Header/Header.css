@@ -107,11 +107,26 @@ header{
         line-height: 50px;
     }
     .header-container ul.header-list>li{
-        display: inline-block;
         margin-right: 15px;
+        float: left;
     }
-    .header-container ul.header-list>li a{
+    .header-container ul.header-list>li>a{
         font-size: 18px;
         text-transform: capitalize
+    }
+    .header-container ul.header-is-login{
+        position : absolute;
+        top : 40px;
+        right : 0;
+        background : #fff;
+        /* border : 1px solid #ccc; */
+        padding : 10px;
+        z-index: 2;
+        width: max-content;
+        box-shadow: 7px 6px 6px 1px #ccc;
+    }
+    .header-container ul.header-is-login>li{
+        font-size: 13px;
+        line-height: 3;
     }
 }

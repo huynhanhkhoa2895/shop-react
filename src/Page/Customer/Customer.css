@@ -4,7 +4,7 @@
     min-height: 350px;
     padding: 30px;
 }
-.box-login .btn-in-box-login{
+.box-login .btn-in-box-login,.btn-box{
     display: block;
     padding: 10px;
     font-size: 14px;

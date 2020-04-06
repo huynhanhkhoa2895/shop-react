@@ -1,5 +1,5 @@
 
-import {setCookie,getCookie} from '../Widget/Cookie/Cookie.js'
+import {setCookie,getCookie,removeCookie} from '../Widget/Cookie/Cookie.js'
 import {remove} from 'lodash'
 const defaultState = getCookie('cart') === null ? [] :  getCookie('cart')
 const carts = (state = defaultState, action) => {
@@ -33,7 +33,8 @@ const carts = (state = defaultState, action) => {
             remove(state,(item)=>{
                 return item.id == action.id
             })
-            setCookie('cart',state);
+            if(state == null || state.length == 0) removeCookie("cart")
+            else setCookie('cart',state);
             return [...state];
         case "UPDATE_ITEM_IN_CART":
             let arr = [...state];
@@ -45,6 +46,10 @@ const carts = (state = defaultState, action) => {
             })
             state = arr;
             setCookie('cart',state)
+            return [...state];
+        case "CLEAR_CART":
+            state = [...[]];
+            removeCookie("cart")
             return [...state];
         default:
 			return [...state];

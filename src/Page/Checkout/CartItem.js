@@ -15,29 +15,11 @@ class CartItem extends React.Component {
             qty : this.props.cart.qty,
             option : this.props.cart.option,
             info : this.props.info,
-            xhtml_option : []
         }
         this.handleChange = this.handleChange.bind(this);
         this.changeQty = this.changeQty.bind(this);
         this.removeItemInCart= this.removeItemInCart.bind(this)
         this.updateItemInCart = this.updateItemInCart.bind(this)
-    }
-    componentWillMount(){
-        let arrOption = [];
-        if(this.state.option != null){
-            this.state.option.map((e,k)=>{
-                arrOption.push(
-                    <p key={k+"_p"}>
-                        <span className="colorGrey f14 b">{e.option.name}: </span>
-                        <span>{e.option.value}</span>
-                    </p>
-                )
-            })
-            this.setState({
-                xhtml_option : [...arrOption]
-            })
-        }
-
     }
     handleChange(event){
         this.setState({
@@ -62,6 +44,21 @@ class CartItem extends React.Component {
         this.props.removeItemInCart(this.props.cart.product.id)
 
     }
+    getTemplateOption(){
+        let arrOption = []
+        if(this.props.cart.option != null && this.props.cart.option.length > 0){
+            this.props.cart.option.map((e,k)=>{
+                console.log(e)
+                arrOption.push(
+                    <p key={k+"_p"}>
+                        <span className="colorGrey f14 b">{e.option.name}: </span>
+                        <span>{e.option_id == 2 ? <span style={{display : "inline-block",height : 15,width : 15,background : e.option.value}}></span> : e.option.value}</span>
+                    </p>
+                )
+            })
+        }
+        return arrOption;
+    }
     updateItemInCart(){
 
         this.props.updateItemInCart(this.props.cart.product.id,(this.state.qty !== 0) ? this.state.qty : this.state.product.qty)
@@ -78,7 +75,7 @@ class CartItem extends React.Component {
                         </div>
                         <div className="product-name">
                             <p><Link to={"/product/"+this.props.cart.product.route}>{this.props.cart.product.name}</Link></p>
-                            {this.props.cart.xhtml_option}
+                            {this.getTemplateOption()}
                         </div>
                     </div>
                 </td>

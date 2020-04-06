@@ -20,7 +20,6 @@ class ProductView extends React.Component {
             option_product : [],
             qty : 1,
         }
-        // this.chooseOption = this.chooseOption.bind(this)
     }
     componentDidMount() {
         let arrImg = [];
@@ -54,7 +53,6 @@ class ProductView extends React.Component {
                   })
                   let classFilter = "";
                   let xhtml_option_item = [];
-                  console.log(result.option_product['option'])
                   Object.keys(result.option_product['option']).map((e,index)=>{
                     xhtml_option_item = [...[]]
                     if(e == 1){

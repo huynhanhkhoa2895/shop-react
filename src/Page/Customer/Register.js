@@ -5,6 +5,7 @@ import Helper from '../../lib/Helper'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle,faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {connect} from 'react-redux';
 import {setCookie,getCookie} from '../../Widget/Cookie/Cookie.js'
 class Register extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class Register extends React.Component {
                 error : null,
                 loading : false,
                 allDone : false,
+                redirect_login : getCookie('redirect_login'),
             };
     
         this.handleChange = this.handleChange.bind(this);
@@ -35,7 +37,6 @@ class Register extends React.Component {
             this.setState({
                 error : xhtml_err
             })
-            console.log("ok",xhtml_err)
             return false;
         }
         if(this.state.password != this.state.repassword){
@@ -91,7 +92,8 @@ class Register extends React.Component {
                 }else{
                     setCookie("customer",result.user)
                     setCookie("token",result.token)
-                    this.props.history.push('/customer')
+                    this.props.login();
+                    this.props.history.push(this.state.redirect_login == null ? '/customer' : this.state.redirect_login)
                 }
             })
         }
@@ -162,4 +164,16 @@ class Register extends React.Component {
         )
     }
 }
-export default Register;
+const mapStateToProps = state => {
+    return {
+      verify: state.isLogin,
+    }
+  }
+  const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        login : ()=>{
+            dispatch({type : 'LOGIN'})
+          },
+    }
+}
+  export default connect(mapStateToProps, mapDispatchToProps)(Register);

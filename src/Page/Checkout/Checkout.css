@@ -25,3 +25,56 @@
     min-height: 300px;
     max-width: 370px;
 }
+.box-payment{
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 20px 10px;
+    font-size: 14px;
+}
+.tab-ship{
+    display: none;
+}
+.tab-ship.active{
+    display: block;
+}
+.btn-box{
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 2px solid #f3a839;
+    color: #f3a839;
+    text-transform: uppercase;
+    max-width: max-content;
+    background: #fff;
+    letter-spacing: 0.1em;
+    position: relative;
+}
+.box-ship{
+    padding: 20px;
+    border: 1px dashed #f3a839;
+    cursor: pointer;
+    height: 150px;
+    overflow: hidden;
+}
+.box-ship.active{
+    padding: 20px;
+    border: 1px solid #f3a839;
+    background: #f3a839;
+    color: #fff;
+}
+.box-info-cart{
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 20px;
+}
+.box-info-cart .box-img{
+    height: 100px;
+    width: 75px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.box-info-cart .box-img img{
+    width: 100%;
+}
