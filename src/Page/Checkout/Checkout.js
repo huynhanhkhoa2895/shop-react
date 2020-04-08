@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle,faSpinner,faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationTriangle,faSpinner,faPlusCircle,faTimes } from '@fortawesome/free-solid-svg-icons'
 import {setCookie,getCookie,removeCookie,clearCookie} from '../../Widget/Cookie/Cookie.js'
 import $ from 'jquery'
 import Helper from '../../lib/Helper'
@@ -168,8 +168,7 @@ class Checkout extends React.Component {
         })
         .then(res => {
             if(res.status == 401){
-                removeCookie("customer")
-                removeCookie("token")
+                this.props.Logout();
                 setCookie("error_login",JSON.stringify({redirect : '/checkout/cart',msg : "Thời gian đăng nhập hết hạn, bạn phải đăng nhập lại"}))
                 this.props.history.push('/customer/login.html')
                 return false;
@@ -188,8 +187,12 @@ class Checkout extends React.Component {
                         ship_id : result.ship[0].id,
                     })
                     result.ship.map((e,k)=>
-                        xhtml_ship.push(<div className="col-md-4 mgb10" key={k+"_dfsafads"}>
+                        xhtml_ship.push(
+                        <div className="col-md-4 mgb10" key={k+"_dfsafads"}>
                             <div className={"box-ship " + ((k==0) ? "active" : "")} onClick={(e2)=> this.chooseShipAddress(e2,e)}>
+                                <div className="close-box">
+                                    <FontAwesomeIcon icon={faTimes} onClick={()=> this.deleteAddress(e)} />
+                                </div>
                                 <p>Họ tên: <span className="text-uppercase font-weight-bold">{e.name}</span></p>
                                 <p>Địa chỉ:  <span>{e.address}</span></p>
                                 <p>Số điện thoại: <span>{e.phone}</span></p>
@@ -219,6 +222,23 @@ class Checkout extends React.Component {
             });
           }
         )
+    }
+    deleteAddress(e){
+        this.props.openLoading()
+        axios.defaults.headers = {
+            'Content-Type': 'application/json',
+            Authorization: "Bearer "+this.state.token,
+        }
+        // axios.defaults.headers.common["Authorization"] =  "Bearer "+this.state.token;
+        axios.delete(Helper.apiUrlLocal()+"api/v1/customer/deleteAddress?id="+e.id)
+        .then(reponse=>{
+            this.props.closeLoading()
+            this.loadListShip();
+            this.chooseShipAddAddress();
+            // this.props.closeLoading();
+            // this.props.clearCart();
+            // this.props.history.push('/customer/success')
+        })
     }
     chooseShipAddAddress(type="add"){
         let activeTabAddForm =false
@@ -269,6 +289,13 @@ class Checkout extends React.Component {
                 this.props.closeLoading();
                 this.props.clearCart();
                 this.props.history.push('/customer/success')
+            }).catch(error=>{
+                if(error.response.status == 401){
+                    this.props.Logout();
+                    setCookie("error_login",JSON.stringify({redirect : '/checkout/cart',msg : "Thời gian đăng nhập hết hạn, bạn phải đăng nhập lại"}))
+                    this.props.history.push('/customer/login.html')
+                    return false;
+                }
             })
         }
 
@@ -428,6 +455,9 @@ const mapStateToProps = state => {
           },
           clearCart : ()=>{
               dispatch({type: 'CLEAR_CART'})
+          },
+          Logout : ()=>{
+            dispatch({type: 'LOGOUT'})
           }
     }
 }

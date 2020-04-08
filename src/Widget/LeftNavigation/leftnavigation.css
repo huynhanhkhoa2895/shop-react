@@ -1,0 +1,13 @@
+.leftnavigation{
+    height: 100%;
+    width: 100%;
+    border-right: 2px solid #f3a839;
+}
+.leftnavigation ul>li{
+    padding: 5px;
+}
+.leftnavigation ul>li a{
+    color: #c5bcbc;
+    font-size: 16px;
+    font-weight: 500;
+}

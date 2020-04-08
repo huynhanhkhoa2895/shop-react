@@ -6,10 +6,10 @@ const verify = (state = defaultState, action) => {
             state.isLogin = true;
             return {...state}
         case "LOGOUT":   
-            removeCookie("user");
+            removeCookie("customer");
             removeCookie("token");
             state.isLogin = false;
-            return {...state}
+            return {...state}            
         default:
 			return state;
 	}

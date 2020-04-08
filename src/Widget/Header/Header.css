@@ -120,11 +120,11 @@ header{
         right : 0;
         background : #fff;
         /* border : 1px solid #ccc; */
-        padding : 10px;
+        padding : 0 10px;
         z-index: 2;
         width: max-content;
-        box-shadow: 7px 6px 6px 1px #ccc;
-    }
+        box-shadow: 0px 9px 11px 4px #ccc;
+        }
     .header-container ul.header-is-login>li{
         font-size: 13px;
         line-height: 3;
