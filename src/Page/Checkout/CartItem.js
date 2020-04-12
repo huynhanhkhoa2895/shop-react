@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery'
 import { NavLink,Link } from 'react-router-dom';
 import './Checkout.css';
 import Helper from '../../lib/Helper'
@@ -60,7 +59,6 @@ class CartItem extends React.Component {
         return arrOption;
     }
     updateItemInCart(){
-
         this.props.updateItemInCart(this.props.cart.product.id,(this.state.qty !== 0) ? this.state.qty : this.state.product.qty)
     }
     render(){

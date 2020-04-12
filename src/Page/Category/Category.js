@@ -18,15 +18,10 @@ class Category extends React.Component {
         }
         this.changeFilter = this.changeFilter.bind(this)
         this.loadData = this.loadData.bind(this)
-        this.useHook();
     }
     async changeFilter(filter){
       await this.setState({filter : filter})
     }
-    useHook(){
-
-    }
-    // useEffect(){}
     componentDidMount() {
       this.loadData()
     }
@@ -69,7 +64,6 @@ class Category extends React.Component {
       )
     }
     async componentWillReceiveProps(nextProps,nextState){
-      console.log("componentWillReceiveProps")
       if(this.props.match.params.route != nextProps.match.params.route){
         await this.setState({
           route : nextProps.match.params.route
@@ -88,8 +82,22 @@ class Category extends React.Component {
                   <LayerNavigation changeFilter={this.changeFilter} />
                 </div>
                 <div className="col-md-10 pd0">
-                  <div className="product-list-title">
-                    <h3 className="colorGrey">{this.state.info.name}</h3>
+                  <div className="row mgb20">
+                    <div className="col">
+                      <div className="product-list-title">
+                        <h3 className="colorGrey">{this.state.info.name}</h3>
+                      </div>
+                    </div>
+                    <div className="col text-right">
+                      <select className="select-filter">
+                        <option value="1">Sắp xếp ngày thêm gần nhất</option>
+                        <option value="1">Sắp xếp ngày thêm lâu nhất</option>
+                        <option value="1">Sắp xếp giá tăng dần</option>
+                        <option value="1">Sắp xếp giá giảm dần</option>
+                        <option value="1">Sắp xếp a->z</option>
+                        <option value="1">Sắp xếp z->a</option>
+                      </select>
+                    </div>
                   </div>
                   <div className="product-list-category w100">
                     <ProductList filter={this.state.filter} option={this.state.option} />

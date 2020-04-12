@@ -67,7 +67,7 @@ class ProductView extends React.Component {
                         if(e2.option_id == e){    
                             // option2.push(e2)                                        
                             xhtml_option_item.push(
-                                <div  key={k} style={(e == 2) ? {maxWidth : '40px'} : {}} className="col">
+                                <div  key={k} style={{maxWidth : '40px'}} className="col">
                                     <span onClick={(e3)=>(this.chooseOption(e3,{option_id : e2.option_id,option : e2,product : this.state.product.id}))} style={(e == 2) ? {background : e2.value} : {}} className={classFilter} >{e == 2 ? '' : e2.value}</span>
                                 </div>
                             )

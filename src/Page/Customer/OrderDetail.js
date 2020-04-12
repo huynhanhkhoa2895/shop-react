@@ -5,11 +5,12 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle,faSpinner,faPlusCircle,faTimes } from '@fortawesome/free-solid-svg-icons'
 import './Customer.css';
+import $ from 'jquery'
 import {connect} from 'react-redux';
 import Helper from '../../lib/Helper'
 import Datable from '../../Widget/Datatable/Datatable'
 
-class Order extends React.Component {
+class OrderDetail extends React.Component {
     constructor(props) {
         const customer = getCookie("customer");   
         const token =   getCookie("token");
@@ -17,14 +18,16 @@ class Order extends React.Component {
         this.state = {
             customer: customer,
             token: token,
-            order : [],
+            product : [],
             xhtml_order : null,
+            err : null,
+            order_id : this.props.match.params.id,
         }
         this.choosePage = this.choosePage.bind(this)
-        this.getOrderItem = this.getOrderItem.bind(this)
+        this.getProductItem = this.getProductItem.bind(this)
     }
     componentDidMount(){
-        fetch(Helper.apiUrlLocal()+"api/v1/customer/getOrder?id="+this.state.customer.id,{headers : {"Authorization" : "Bearer "+this.state.token,}})
+        fetch(Helper.apiUrlLocal()+"api/v1/customer/getOrderDetail?customer_id="+this.state.customer.id+"&order_id="+this.state.order_id,{headers : {"Authorization" : "Bearer "+this.state.token,}})
         .then(res => {
             if(res.status == 401){
                 removeCookie("customer")
@@ -36,10 +39,17 @@ class Order extends React.Component {
         })
         .then(
           (result) => {
-            this.setState({
-                order : result
-            })
-            this.getOrderItem()
+              if(result.err == 0){
+                this.setState({
+                    product : result.product
+                })
+              }else{
+                this.setState({
+                    err : result.msg
+                })
+              }
+
+            this.getProductItem()
           },
           (error) => {
             this.setState({
@@ -50,33 +60,36 @@ class Order extends React.Component {
         )
     }
     choosePage(page){
-        this.getOrderItem(page)
+        this.getProductItem(page)
     }
-    getOrderItem(page=1){
-        if(this.state.order.length > 0){
+    getProductItem(page=1){
+        if(this.state.product.length > 0){
             let data = 
-                {
-                    "Order Id" : {
-                        type : "text",
-                        value  : "id"
-                    },
-                    "Ngày tạo" : {
-                        type : "text",
-                        value  : "created_at"
-                    },
-                    "Tổng tiền" : {
-                        type : "total",
-                        value  : "total"
-                    },
-                    "Xem chi tiết" : {
-                        type : "link",
-                        value  : "Xem chi tiết",
-                        href : "/customer/order/",
-                        param : "id"
-                    }
-                }
+            {
+                "Sản phẩm" : {
+                    type : "product",
+                    value  : "product"
+                },
+                "Nhãn hàng" : {
+                    type : "text",
+                    value  : "brand_name"
+                },
+                "Thể loại" : {
+                    type : "text",
+                    value  : "category_name"
+                },
+                "Tổng giá" : {
+                    type : "total",
+                    value  : "order_price"
+                },
+                "Số lượng mua" : {
+                    type : "text",
+                    value  : "order_qty"
+                },
+
+            }
             this.setState({
-                xhtml_order : <Datable tbody={data} data={this.state.order} page={page} each={5} choosePage={this.choosePage} />
+                xhtml_order : <Datable tbody={data} data={this.state.product} page={page} each={5} choosePage={this.choosePage} />
             })
         }
     }
@@ -88,10 +101,10 @@ class Order extends React.Component {
                         <LeftNavigation2 />
                     </div>
                     <div className="col-md-10">
-                        {(this.state.order.length > 0) ?
+                        {(this.state.product.length > 0) ?
                             this.state.xhtml_order
                         :
-                            <h3 className="text-center colorGrey">Hiện tại bạn không có đơn hàng nào</h3>
+                        <h3 className="text-center colorGrey">{this.state.err}</h3>
                         }
                     </div>
                 </div>
@@ -106,4 +119,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
     }
 }
-export default connect(null, mapDispatchToProps)(Order);
+export default connect(null, mapDispatchToProps)(OrderDetail);

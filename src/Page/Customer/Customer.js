@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import './Customer.css';
-import { Link } from 'react-router-dom';
 import Helper from '../../lib/Helper' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle,faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -16,8 +15,9 @@ class Customer extends React.Component {
         super(props);
 
         if(customer == null || token == null){
-            clearCookie();
+            this.props.Logout()
             this.props.history.push('/customer/login.html')
+            return false
         }
         this.state = {
             customer: customer,
@@ -102,7 +102,6 @@ class Customer extends React.Component {
                     oldpassword : "",
                     repassword : "",
                 })
-                console.log(this.state.password,this.state.oldpassword)
                 event.preventDefault();
                 this.props.closeLoading()
                 return false;
@@ -221,7 +220,7 @@ class Customer extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label className="b">Tỉnh thành phố</label>
-                                <select className="form-control" name="state" value={this.state.province} onChange={this.handleChange}>
+                                <select className="form-control" name="province" value={this.state.province} onChange={this.handleChange}>
                                     {
                                         this.state.allProvince.map((e,k)=>
                                             <option key={k+"e.name"} value={e.id}>{e.name}</option>

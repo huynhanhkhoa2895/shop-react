@@ -202,7 +202,33 @@ text-align: center;
   z-index: 100;
 }
 hr{
-  margin: 0;
+  margin: 0 !important;
+}
+.link-page{
+  margin-bottom: 20px;
+  text-align: center;
+}
+.page{
+  display: inline-block;
+}
+.page a,.page span{
+  border: 1px solid #f3a839;
+  display: block;
+  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f3a839;
+  cursor: pointer;
+}
+.page a:hover,.page.activePage a,.page span:hover,.page.activePage span{
+  background: #f3a839;
+  color: #ffffff;
+  cursor: pointer;
+
 }
 
 

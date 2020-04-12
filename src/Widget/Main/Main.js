@@ -6,6 +6,7 @@ import Login from '../../Page/Customer/Login.js'
 import Logout from '../../Page/Customer/Logout.js'
 import Customer from '../../Page/Customer/Customer.js'
 import Order from '../../Page/Customer/Order.js'
+import OrderDetail from '../../Page/Customer/OrderDetail.js'
 import Address from '../../Page/Customer/Address.js'
 import Register from '../../Page/Customer/Register.js'
 import Checkout from '../../Page/Checkout/Checkout.js'
@@ -64,6 +65,7 @@ class Main extends React.Component {
               <Route path={"/customer/login.html"} exact={true} component={Login} />
               <Route path={"/customer/logout"} exact={true} component={Logout} />
               <Route path={"/customer/register.html"} exact={true} component={Register} />
+              <Route path={"/customer/order/:id"} exact={true} component={OrderDetail} />
 
               <Route path={"/checkout/cart"} exact={true} component={Cart} />
               <Route path={"/checkout/success"} exact={true} component={Success} />

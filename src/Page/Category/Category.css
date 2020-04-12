@@ -17,3 +17,12 @@
 .layer-navigation .filter-container span{
     cursor: pointer;
 }
+.select-filter{
+    border: 0;
+    padding: 5px;
+    width: max-content;
+    background: #dedede6b;
+}
+.select-filter:focus{
+    outline: unset;
+}

@@ -16,6 +16,7 @@ class Checkout extends React.Component {
         if(customer == null || token == null){
             clearCookie();
             this.props.history.push('/customer/login.html')
+            return false
         }
         this.state = {
             customer: customer,
@@ -34,6 +35,7 @@ class Checkout extends React.Component {
             province : customer.state == "" ? 1 : customer.state,
             activeTabAddForm : true,
             allProvince : [],
+            paymentAtHome : true,
             total : 0,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -56,6 +58,12 @@ class Checkout extends React.Component {
     }
     handleChange(event){
         if(event.target.name == "phone" && isNaN(event.target.value)){
+            return false;
+        }
+        if(event.target.name == "hinhthuc"){
+            this.setState({
+                paymentAtHome : !this.state.paymentAtHome
+            })
             return false;
         }
         this.setState({
@@ -119,7 +127,7 @@ class Checkout extends React.Component {
 
         this.props.carts.map((e,k)=>{
             xhtml_cart.push(
-                <div key={k+"xhtml_cart"} className="row">
+                <div key={k+"xhtml_cart"} className="row mgb20">
                     <div className="col-md-2 pd0">
                         <div className="box-img">
                             <Link to={"/product/"+e.product.route}>
@@ -196,6 +204,8 @@ class Checkout extends React.Component {
                                 <p>Họ tên: <span className="text-uppercase font-weight-bold">{e.name}</span></p>
                                 <p>Địa chỉ:  <span>{e.address}</span></p>
                                 <p>Số điện thoại: <span>{e.phone}</span></p>
+                                <p>Tỉnh Thành Phố: <span>{this.state.allProvince.map((e2)=>{ if(e2.id == e.state){return (<span>{e2.name}</span>);}})}</span></p>
+
                             </div>
                         </div>)
                     )
@@ -258,17 +268,19 @@ class Checkout extends React.Component {
         let order = {
             customer_id : this.state.customer.id,
             ship_id : this.state.ship_id,
-            total : this.state.total
+            total : this.state.total,
+            payment_at_home : this.state.paymentAtHome,
         }
         let order_detail = [];
         this.props.carts.map((e)=>
-            order_detail.push({product_id : e.product.id,price : e.product.price,qty : e.qty,option : JSON.stringify(e.option)})
+            order_detail.push({product_id : e.product.id,price : (e.product.price*e.qty),qty : e.qty,option : JSON.stringify(e.option)})
         )
-        if(this.state.ship == null || this.state.ship == "" || this.state.ship == 0){
+        if(this.state.ship_id == null || this.state.ship_id == "" || this.state.ship_id == 0){
             let xhtml_err = <div className="col-12 error-message"><FontAwesomeIcon icon={faExclamationTriangle} /> Bạn chưa có thông tin ship hàng xin hãy chọn</div>;
             this.setState({
                 errorConfirm : xhtml_err
             })
+            this.props.closeLoading()
         }else{
             axios.defaults.headers = {
                 'Content-Type': 'application/json',
@@ -288,7 +300,7 @@ class Checkout extends React.Component {
             .then(reponse=>{
                 this.props.closeLoading();
                 this.props.clearCart();
-                this.props.history.push('/customer/success')
+                this.props.history.push('/checkout/success')
             }).catch(error=>{
                 if(error.response.status == 401){
                     this.props.Logout();
@@ -324,20 +336,20 @@ class Checkout extends React.Component {
                                     <div className="row mgb20">
                                         <div className="col-md-12">
                                             <div className="left mgr10">
-                                                <input type="radio" value="0" name="hinhthuc" />
+                                                <input type="radio" value={true} name="hinhthuc" checked={this.state.paymentAtHome} onChange={this.handleChange}/>
                                             </div>
                                             <div className="left lh1 ls01">
-                                                Chuyển khoản
+                                                Thanh toán khi nhận hàng
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="left mgr10">
-                                                <input type="radio" value="1" name="hinhthuc" />
+                                                <input type="radio" value={false} name="hinhthuc" checked={!this.state.paymentAtHome} onChange={this.handleChange}/>
                                             </div>
                                             <div className="left lh1 ls01">
-                                                Thanh toán khi nhận hàng
+                                                Chuyển khoản
                                             </div>
                                         </div>
                                     </div>
@@ -379,7 +391,7 @@ class Checkout extends React.Component {
                                                     </div>
                                                     <div className="form-group">
                                                         <label className="b">Tỉnh thành phố</label>
-                                                        <select className="form-control" name="state" value={this.state.province} onChange={this.handleChange}>
+                                                        <select className="form-control" name="province" value={this.state.province} onChange={this.handleChange}>
                                                             {
                                                                 this.state.allProvince.map((e,k)=>
                                                                     <option key={k+"e.name"} value={e.id}>{e.name}</option>
@@ -412,8 +424,8 @@ class Checkout extends React.Component {
                             </div>
                             <div className="col-md-12">
                                 <div className="box-info-cart">
-                                    <div className={(this.state.error) ? 'row block' : 'row none'}>
-                                        {this.state.error}
+                                    <div className={(this.state.errorConfirm) ? 'row block' : 'row none'}>
+                                        {this.state.errorConfirm}
                                     </div>
                                     {this.loadTemplateCart(carts)}
                                     <hr />
