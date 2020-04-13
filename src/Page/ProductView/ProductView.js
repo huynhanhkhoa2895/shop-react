@@ -29,7 +29,6 @@ class ProductView extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
-              console.log(result)
               if(result.product.length === 0){                  
                 return <Redirect to="not-found.html" />
               }else{
@@ -120,7 +119,6 @@ class ProductView extends React.Component {
             $(e.target).removeClass("active")
             isAdd = false;
         }
-        console.log(option)
         if(isAdd){
             arrOption.push(option);
         }else{
@@ -131,7 +129,6 @@ class ProductView extends React.Component {
         await this.setState({
             option_product : [...arrOption]
         })
-        console.log(this.state.option_product)
 
     }
     changeQty(type){

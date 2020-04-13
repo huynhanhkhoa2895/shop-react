@@ -11,7 +11,6 @@ const store = createStore(
 );
 // store.subscribe(()=>{
 //   store.dispatch("GET_CART");
-//   console.log("Cart",store.getState());
 // })
 function App() {
   return (

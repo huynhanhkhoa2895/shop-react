@@ -33,7 +33,6 @@ class ProductList extends React.Component {
         if(_page == null && Helper.getQueryParams("page") != 0 && Helper.getQueryParams("page") != null){
             page = Helper.getQueryParams("page")
         }
-        console.log("page",page)
         fetch(Helper.apiUrl()+"api/v1/product/list?" + $.param( option ) + ((this.props.pagination && page != null) ? ("&page=" + page) : ''))
           .then(res => res.json())
           .then(
@@ -133,8 +132,6 @@ class ProductList extends React.Component {
                     option_value.push(filter[e])
                 })
                 option['whereIn'] = {...option['whereIn'],...{'option_product.option_value' : option_id,'option_product.option_id' : option_value}}
-                // console.log(JSON.stringify(nextProps.filter))
-                // console.log(JSON.stringify(this.props))
 
                 if($.isEmptyObject(this.props.filter)){
                     page = 1;
@@ -143,7 +140,6 @@ class ProductList extends React.Component {
                 // this.props.history.push(`${window.location.origin}/${window.location.pathname}`);
             }
             let _option = {option : option}
-            console.log(_option)
             await this.setState({
                 product : [],
                 option : _option,
@@ -160,7 +156,6 @@ class ProductList extends React.Component {
         this._isMounted = false;
     }
     render() {
-        console.log("render",this.state.product.length)
         return(
             <>
                 {(this.state.product.length !== 0) ?                     

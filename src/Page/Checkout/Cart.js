@@ -16,7 +16,6 @@ class Cart extends React.Component {
             errorMessage : false,
             customer : customer == null ? null : customer
         }
-        console.log(customer);
         if(getCookie('cart') == null || $.isEmptyObject(getCookie('cart')) || this.state.cart.length == 0){
             this.props.history.push('/')
         }

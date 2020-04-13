@@ -53,12 +53,10 @@ class Customer extends React.Component {
         })
         .then(
           (result) => {
-            console.log(result);
 
             this.setState({
                 allProvince : result
             })
-            console.log(typeof result)
 
           },
           (error) => {

@@ -47,7 +47,6 @@ class CartItem extends React.Component {
         let arrOption = []
         if(this.props.cart.option != null && this.props.cart.option.length > 0){
             this.props.cart.option.map((e,k)=>{
-                console.log(e)
                 arrOption.push(
                     <p key={k+"_p"}>
                         <span className="colorGrey f14 b">{e.option.name}: </span>
