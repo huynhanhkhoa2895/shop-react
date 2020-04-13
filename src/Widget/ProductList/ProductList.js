@@ -1,11 +1,13 @@
 import React from 'react';
 import './ProductList.css';
 import Product from '../../Widget/Product/Product.js';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import $ from 'jquery'
 import Helper from '../../lib/Helper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMeh } from '@fortawesome/free-solid-svg-icons'
+import {connect} from 'react-redux';
+
 class ProductList extends React.Component {
     _isMounted = false;
     constructor(props){
@@ -19,14 +21,20 @@ class ProductList extends React.Component {
             key : 0
         }
     }
-    componentWillMount() {
+    componentDidMount() {
        this.loadData()
     }
-    loadData(){
+    loadData(_page=null,option = this.props.option){
         let image = [];
         let page_xhtml = [];
         let product_xhtml = [];
-        fetch(Helper.apiUrl()+"api/v1/product/list?" + $.param( this.state.option ) + this.state.page)
+        let page = _page;
+        this.props.openLoading()
+        if(_page == null && Helper.getQueryParams("page") != 0 && Helper.getQueryParams("page") != null){
+            page = Helper.getQueryParams("page")
+        }
+        console.log("page",page)
+        fetch(Helper.apiUrl()+"api/v1/product/list?" + $.param( option ) + ((this.props.pagination && page != null) ? ("&page=" + page) : ''))
           .then(res => res.json())
           .then(
             (result) => {                
@@ -35,13 +43,16 @@ class ProductList extends React.Component {
                     image[element.product_id].push(element.name);
                 });
                 let product = [];
+                let total = 0
                 if(this.props.option.option.paginate == null){
-                    product = result.product                    
+                    product = result.product;
+                    total = product.length;
                 }else{
+                    total = result.product.total
                     for(let i=1;i<=result.product.last_page;i++){
                         page_xhtml.push(                            
                             <div key={i} className={(Helper.getQueryParams('page') == i || (Helper.getQueryParams('page') == null && i==1)) ? 'page activePage' : 'page'}>
-                                <Link to={"?page="+i} onClick={this.clickChoosePage}>{i}</Link>
+                                <Link to={"?page="+i} onClick={()=>this.clickChoosePage(i)}>{i}</Link>
                             </div>
                         )
                     }
@@ -71,8 +82,12 @@ class ProductList extends React.Component {
                         )
                        
                     })
-                }                
+                }
                 this.setState({product : product_xhtml})
+                if(this.props.setTotalProduct != null){
+                    this.props.setTotalProduct(total)
+                }
+                this.props.closeLoading()
             },
             (error) => {
               this.setState({
@@ -82,43 +97,61 @@ class ProductList extends React.Component {
             }
           )
     }
+    clickChoosePage(page){
+        this.loadData(page)
+    }
     async componentWillReceiveProps(nextProps,prevState) {
-        let page = Helper.getQueryParams('page')        
-        let option = {...this.props.option.option};
-        if(!$.isEmptyObject(nextProps.filter)){
-            let filter = nextProps.filter;
-            let option_id = [];
-            let option_value = [];
-            if($.isEmptyObject(option['join'])){
-                option['join'] = [{
-                    table : 'option_product',
-                    on1 : 'option_product.product_id',
-                    on2 : 'product.id'
-                }]
-            }else{
-                option['join'] = {...option['join'],...[{
-                    table : 'option_product',
-                    on1 : 'option_product.product_id',
-                    on2 : 'product.id'
-                }]}
+
+        if(JSON.stringify(nextProps) != JSON.stringify(this.props)){
+            let page = Helper.getQueryParams('page')        
+            let option = {...this.props.option.option};
+            if(!$.isEmptyObject(nextProps.sort)){
+                option['order'] = nextProps.sort
             }
-            if($.isEmptyObject(option['whereIn'])){
-                option['whereIn'] = {}
+            if(!$.isEmptyObject(nextProps.filter)){
+                let filter = nextProps.filter;
+                let option_id = [];
+                let option_value = [];
+                if($.isEmptyObject(option['join'])){
+                    option['join'] = [{
+                        table : 'option_product',
+                        on1 : 'option_product.product_id',
+                        on2 : 'product.id'
+                    }]
+                }else{
+                    option['join'] = {...option['join'],...[{
+                        table : 'option_product',
+                        on1 : 'option_product.product_id',
+                        on2 : 'product.id'
+                    }]}
+                }
+                if($.isEmptyObject(option['whereIn'])){
+                    option['whereIn'] = {}
+                }
+                Object.keys(filter).map((e,k)=>{
+                    option_id.push(e);
+                    option_value.push(filter[e])
+                })
+                option['whereIn'] = {...option['whereIn'],...{'option_product.option_value' : option_id,'option_product.option_id' : option_value}}
+                // console.log(JSON.stringify(nextProps.filter))
+                // console.log(JSON.stringify(this.props))
+
+                if($.isEmptyObject(this.props.filter)){
+                    page = 1;
+                    Helper.removeParamQuery("page");
+                }
+                // this.props.history.push(`${window.location.origin}/${window.location.pathname}`);
             }
-            Object.keys(filter).map((e,k)=>{
-                option_id.push(e);
-                option_value.push(filter[e])
+            let _option = {option : option}
+            console.log(_option)
+            await this.setState({
+                product : [],
+                option : _option,
+                key : this.state.key += 1,
             })
-            option['whereIn'] = {...option['whereIn'],...{'option_product.option_value' : option_id,'option_product.option_id' : option_value}}
+            await this.loadData(page,_option)
         }
-        let _option = {option : option}
-        await this.setState({
-            product : [],
-            option : _option,
-            page : page == null ? '' : '&page='+page,
-            key : this.state.key += 1,
-        })
-        this.loadData()
+        
         // if(nextProps.option.page != Helper.getQueryParams('page')){
 
         // }
@@ -127,6 +160,7 @@ class ProductList extends React.Component {
         this._isMounted = false;
     }
     render() {
+        console.log("render",this.state.product.length)
         return(
             <>
                 {(this.state.product.length !== 0) ?                     
@@ -146,4 +180,14 @@ class ProductList extends React.Component {
         );
     }
 }
-export default ProductList;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        openLoading : ()=>{
+          dispatch({type : 'OPEN_LOADING'})
+        },
+        closeLoading : ()=>{
+          dispatch({type : 'CLOSE_LOADING'})
+        },
+    }
+  }
+export default connect(null, mapDispatchToProps)(ProductList);

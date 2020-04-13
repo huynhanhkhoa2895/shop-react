@@ -4,6 +4,8 @@ import { NavLink,Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart,faSearch,faUser,faTimes } from '@fortawesome/free-solid-svg-icons'
 import MinicartItem from '../../Widget/Minicart/MinicartItem'
+import Search from './Search'
+
 import {connect} from 'react-redux';
 import $ from 'jquery'
 import Helper from '../../lib/Helper'
@@ -166,7 +168,9 @@ class Header extends React.Component {
                 {this.state.menus}
               </ul>
               <ul className="header-list right">
-                <li style={{marginRight : "20px",cursor : "pointer"}}><FontAwesomeIcon icon={faSearch} color="#fff"/></li>
+                <li style={{marginRight : "20px",cursor : "pointer"}}>
+                  <Search />
+                </li>
                 <li style={{marginRight : "20px", position : 'relative'}} >
                   <FontAwesomeIcon icon={faShoppingCart} color="#fff" onClick={this.openMiniCart.bind(this)} style={{cursor : "pointer"}}/>
                   <div className="popup-qty">

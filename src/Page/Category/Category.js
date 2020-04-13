@@ -11,13 +11,17 @@ class Category extends React.Component {
         this.state= {
           info : {},
           table : {},
-          filter : 1,
+          filter : {},
           option : {},
           route : this.props.match.params.route,
-          page : queryString.parse(this.props.location.search).page == null ? null : queryString.parse(this.props.location.search).page
+          page : queryString.parse(this.props.location.search).page == null ? null : queryString.parse(this.props.location.search).page,
+          sort : null,
+          allItem : 0
         }
         this.changeFilter = this.changeFilter.bind(this)
         this.loadData = this.loadData.bind(this)
+        this.selectChange = this.selectChange.bind(this)
+        this.setTotalProduct = this.setTotalProduct.bind(this);
     }
     async changeFilter(filter){
       await this.setState({filter : filter})
@@ -50,7 +54,6 @@ class Category extends React.Component {
               paginate : 8,
             }
           }
-          console.log(option);
           this.setState({
             option : option
           })
@@ -71,6 +74,23 @@ class Category extends React.Component {
         this.loadData()
       }
     }
+    selectChange(event){
+      let value = JSON.parse(event.target.value)
+      Helper.removeParamQuery("page");
+      this.setState({
+        sort : value
+      })
+
+    }
+    setTotalProduct(total){
+      if(total != this.state.allItem){
+        this.setState({
+          allItem : total
+        })
+      }
+
+    }
+    
     render() {
         let xhtml = <></>
         if(!$.isEmptyObject(this.state.table) && !$.isEmptyObject(this.state.option)){
@@ -85,22 +105,22 @@ class Category extends React.Component {
                   <div className="row mgb20">
                     <div className="col">
                       <div className="product-list-title">
-                        <h3 className="colorGrey">{this.state.info.name}</h3>
+                        <h3 className="colorGrey">{this.state.info.name} ({this.state.allItem})</h3>
                       </div>
                     </div>
                     <div className="col text-right">
-                      <select className="select-filter">
-                        <option value="1">Sắp xếp ngày thêm gần nhất</option>
-                        <option value="1">Sắp xếp ngày thêm lâu nhất</option>
-                        <option value="1">Sắp xếp giá tăng dần</option>
-                        <option value="1">Sắp xếp giá giảm dần</option>
-                        <option value="1">Sắp xếp a->z</option>
-                        <option value="1">Sắp xếp z->a</option>
+                      <select className="select-filter" onChange={this.selectChange}>
+                        <option value={JSON.stringify({"product.created_at" : "desc"})}>Sắp xếp ngày thêm gần nhất</option>
+                        <option value={JSON.stringify({"product.created_at" : "asc"})}>Sắp xếp ngày thêm lâu nhất</option>
+                        <option value={JSON.stringify({"product.price" : "asc"})}>Sắp xếp giá tăng dần</option>
+                        <option value={JSON.stringify({"product.price" : "desc"})}>Sắp xếp giá giảm dần</option>
+                        <option value={JSON.stringify({"product.name" : "asc"})}>Sắp xếp a->z</option>
+                        <option value={JSON.stringify({"product.name" : "desc"})}>Sắp xếp z->a</option>
                       </select>
                     </div>
                   </div>
                   <div className="product-list-category w100">
-                    <ProductList filter={this.state.filter} option={this.state.option} />
+                    <ProductList filter={this.state.filter} option={this.state.option} sort={this.state.sort} setTotalProduct={this.setTotalProduct} pagination={true} page={this.state.page}/>
                   </div>
                 </div>
               </div>

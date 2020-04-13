@@ -23,6 +23,11 @@ class Helpers {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         re.test(email);
     }
+    static removeParamQuery(name){
+        let params = new URLSearchParams(window.location.search)
+        params.delete(name)
+        window.history.replaceState(null, '', '?' + params + window.location.hash)
+    }
 }
 
 export default Helpers;

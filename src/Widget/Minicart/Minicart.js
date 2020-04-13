@@ -11,7 +11,6 @@ class Minicart extends React.Component {
         // this.handleChange = this.handleChange.bind(this);
         // this.removeItemInCart = this.removeItemInCart.bind(this);
         // console.log("MinicartItem",this.props.info);
-        console.log(this.props.carts);
         this.templateMinicart = this.templateMinicart.bind(this)
     }
     templateMinicart(){
