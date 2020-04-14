@@ -40,7 +40,7 @@ class Address extends React.Component {
 
     }
     componentDidMount(){
-        fetch(Helper.apiUrlLocal()+"api/v1/loadListProvince")
+        fetch(Helper.apiUrl()+"api/v1/loadListProvince")
         .then(res => {
             if(res.status == 401){
                 removeCookie("customer")
@@ -102,7 +102,7 @@ class Address extends React.Component {
             Authorization: "Bearer "+this.state.token,
         }
         // axios.defaults.headers.common["Authorization"] =  "Bearer "+this.state.token;
-        axios.delete(Helper.apiUrlLocal()+"api/v1/customer/deleteAddress?id="+e.id)
+        axios.delete(Helper.apiUrl()+"api/v1/customer/deleteAddress?id="+e.id)
         .then(reponse=>{
             this.props.closeLoading()
             this.loadListShip();
@@ -113,7 +113,7 @@ class Address extends React.Component {
         })
     }
     loadListShip(){
-        fetch(Helper.apiUrlLocal()+"api/v1/customer/getInfoShipping?"+$.param({"id" : this.state.customer.id}),{
+        fetch(Helper.apiUrl()+"api/v1/customer/getInfoShipping?"+$.param({"id" : this.state.customer.id}),{
             headers : {
                 "Authorization" : "Bearer "+this.state.token,
             },
@@ -196,13 +196,13 @@ class Address extends React.Component {
                 Authorization: "Bearer "+this.state.token,
             }
             // axios.defaults.headers.common["Authorization"] =  "Bearer "+this.state.token;
-            await axios.post(Helper.apiUrlLocal()+"api/v1/customer/addInfoShip",JSON.stringify({customer_id : this.state.customer.id,name : this.state.name,address : this.state.address,province : this.state.province,phone : this.state.phone}),{
+            await axios.post(Helper.apiUrl()+"api/v1/customer/addInfoShip",JSON.stringify({customer_id : this.state.customer.id,name : this.state.name,address : this.state.address,province : this.state.province,phone : this.state.phone}),{
                 headers: {
                     'Content-Type' : 'application/json',
                     "Access-Control-Allow-Origin" : "*",
                     "access-control-allow-origin" : "*",
                     "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
-                    // 'Origin' : Helper.apiUrlLocal()
+                    // 'Origin' : Helper.apiUrl()
                 }
                 // headers: headers,
             })

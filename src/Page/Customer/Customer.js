@@ -41,7 +41,7 @@ class Customer extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        fetch(Helper.apiUrlLocal()+"api/v1/loadListProvince")
+        fetch(Helper.apiUrl()+"api/v1/loadListProvince")
         .then(res => {
             if(res.status == 401){
                 removeCookie("customer")
@@ -123,13 +123,13 @@ class Customer extends React.Component {
                 "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
                 Authorization: "Bearer "+this.state.token,
             }
-            await axios.put(Helper.apiUrlLocal()+"api/v1/customer/updateInfo",JSON.stringify({id : this.state.customer.id,customer : data,isChangePassword : this.state.isChangePassword,password : this.state.password,oldpassword : this.state.oldpassword}),{
+            await axios.put(Helper.apiUrl()+"api/v1/customer/updateInfo",JSON.stringify({id : this.state.customer.id,customer : data,isChangePassword : this.state.isChangePassword,password : this.state.password,oldpassword : this.state.oldpassword}),{
                 headers: {
                     'Content-Type' : 'application/json',
                     "Access-Control-Allow-Origin" : "*",
                     "access-control-allow-origin" : "*",
                     "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
-                    // 'Origin' : Helper.apiUrlLocal()
+                    // 'Origin' : Helper.apiUrl()
                 }
                 // headers: headers,
             })

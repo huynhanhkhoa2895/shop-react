@@ -51,13 +51,13 @@ class Login extends React.Component {
             await this.setState({
                 loading : true
             })
-            await axios.post(Helper.apiUrlLocal()+"api/v1/login",JSON.stringify({email : this.state.valueEmail,password : this.state.valuePass}),{
+            await axios.post(Helper.apiUrl()+"api/v1/login",JSON.stringify({email : this.state.valueEmail,password : this.state.valuePass}),{
                 headers: {
                     'Content-Type' : 'application/json',
                     "Access-Control-Allow-Origin" : "*",
                     "access-control-allow-origin" : "*",
                     "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
-                    // 'Origin' : Helper.apiUrlLocal()
+                    // 'Origin' : Helper.apiUrl()
                 }
                 // headers: headers,
             })

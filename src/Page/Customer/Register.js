@@ -60,13 +60,13 @@ class Register extends React.Component {
                 name: this.state.name,
                 phone: this.state.phone,
             }
-            await axios.post(Helper.apiUrlLocal()+"api/v1/register",JSON.stringify(data),{
+            await axios.post(Helper.apiUrl()+"api/v1/register",JSON.stringify(data),{
                 headers: {
                     'Content-Type' : 'application/json',
                     "Access-Control-Allow-Origin" : "*",
                     "access-control-allow-origin" : "*",
                     "Access-Control-Allow-Headers" : 'Origin, X-Requested-With, Content-Type, Accept',
-                    // 'Origin' : Helper.apiUrlLocal()
+                    // 'Origin' : Helper.apiUrl()
                 }
                 // headers: headers,
             })

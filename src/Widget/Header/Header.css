@@ -6,7 +6,6 @@ header{
     background-color: #f3a839;
 }
 #navbar ul.header-list>li>a{
-    color: #fff;
     letter-spacing: 0.1em;
 }
 #navbar.sticky {
@@ -93,29 +92,69 @@ header{
     color: #fff;
 }
 @media all and (max-width: 767px) {
-
+    .header-container-desktop{
+        display: none;
+    }
+    .header-container-mobile{
+        height: 100%;
+        width: 100%;
+        margin: auto;
+        padding: 15px 0;
+        display: block;
+        text-align: center;
+    }
+    .header-container-mobile ul.header-list{
+        padding: 10px;
+    }
+    .header-container-mobile ul.header-list>li a{
+        color: #444;
+    }
+    .header-container-mobile ul.header-list>li{
+        text-align: left;
+    }
+    .header-container-mobile .menu-bar{
+        position: fixed;
+        top: 50px;
+        height: calc(100vh - 50px);
+        background: #fff;
+        z-index: 5;
+        width: 100vw;
+        display: none;
+    }
+    .header-container-mobile .menu-bar.active{
+        display: block;
+    }
 }
 @media all and (min-width: 767px) {
+    .header-container-mobile{
+        display: none;
+    }
 
-    .header-container{
+
+    .header-container-mobile ul.header-list>li a{
+        color: #fff;
+        text-align: left;
+    }
+    .header-container-desktop{
         height: 100%;
         width: 70%;
         margin: auto;
+        display: block;
     }
-    .header-container ul.header-list{
+    .header-container-desktop ul.header-list{
         margin: 0;
         padding: 0;
         line-height: 50px;
     }
-    .header-container ul.header-list>li{
+    .header-container-desktop ul.header-list>li{
         margin-right: 15px;
         float: left;
     }
-    .header-container ul.header-list>li>a{
+    .header-container-desktop ul.header-list>li>a{
         font-size: 18px;
         text-transform: capitalize
     }
-    .header-container ul.header-is-login{
+    .header-container-desktop ul.header-is-login{
         position : absolute;
         top : 40px;
         right : 0;
@@ -126,7 +165,7 @@ header{
         width: max-content;
         box-shadow: 0px 9px 11px 4px #ccc;
         }
-    .header-container ul.header-is-login>li{
+    .header-container-desktop ul.header-is-login>li{
         font-size: 13px;
         line-height: 3;
     }
@@ -138,36 +177,36 @@ header{
         0% {width: 150px;}
         100% {width: 0;}
       }
-    .header-container .input-group.input-group-sm{
+    .header-container-desktop .input-group.input-group-sm{
         margin-top: 13px;
     }
-    .header-container .input-group-text{
+    .header-container-desktop .input-group-text{
         background: #f3a839;
         border: unset;
     }
-    .header-container .input-group-search input{
+    .header-container-desktop .input-group-search input{
         border: 0;
         border-radius: 0 10px 10px 0;
         width: 0;
         padding: 0;
     }
-    .header-container .input-group-search input:focus{
+    .header-container-desktop .input-group-search input:focus{
         outline: unset;
         border: unset !important;
         box-shadow: unset;
     }
-    .header-container .input-group-search.active .input-group-icon{
+    .header-container-desktop .input-group-search.active .input-group-icon{
         border: 1px solid #fff;
         border-radius: 10px 0 0 10px;
     }
-    .header-container .input-group-search.active input {
+    .header-container-desktop .input-group-search.active input {
         width: 150px;
         animation-name: openSearch;
         border: 1px solid #fff;
         padding: 5px;
         animation-duration: 0.5s;
     }
-    .header-container .input-group-search.have-animate input{
+    .header-container-desktop .input-group-search.have-animate input{
         border: 0;
         border-radius: 0 10px 10px 0;
         width: 0;

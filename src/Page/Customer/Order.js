@@ -24,7 +24,7 @@ class Order extends React.Component {
         this.getOrderItem = this.getOrderItem.bind(this)
     }
     componentDidMount(){
-        fetch(Helper.apiUrlLocal()+"api/v1/customer/getOrder?id="+this.state.customer.id,{headers : {"Authorization" : "Bearer "+this.state.token,}})
+        fetch(Helper.apiUrl()+"api/v1/customer/getOrder?id="+this.state.customer.id,{headers : {"Authorization" : "Bearer "+this.state.token,}})
         .then(res => {
             if(res.status == 401){
                 removeCookie("customer")

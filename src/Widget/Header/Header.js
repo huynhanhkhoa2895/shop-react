@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 import { NavLink,Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart,faSearch,faUser,faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart,faBars,faUser,faTimes } from '@fortawesome/free-solid-svg-icons'
 import MinicartItem from '../../Widget/Minicart/MinicartItem'
 import Search from './Search'
 
@@ -19,6 +19,7 @@ class Header extends React.Component {
         popup : true,
         carts : null,
         input : {},
+        menuBar: false,
         displayPopupUser : false
       };
       this.setTemplateMinicart = this.setTemplateMinicart.bind(this)
@@ -151,12 +152,17 @@ class Header extends React.Component {
       }
       return xhtml
     }
+    openMenubar(){
+      this.setState({
+        menuBar : !this.state.menuBar
+      })
+    }
     render() {
       let {carts} = this.props;
       let {verify} = this.props;
       return (
           <header id="navbar">
-            <div className="header-container">
+            <div className="header-container-desktop">
               <ul className="header-list left">
                 <li>
                   <div style={{overflow : "hidden"}}>
@@ -190,6 +196,26 @@ class Header extends React.Component {
                 </li>
                 {this.setTemplateUser(verify)}
               </ul>
+            </div>
+            <div className="header-container-mobile">
+              <div className="row">
+                <div className="col-4">
+                  <FontAwesomeIcon onClick={()=>this.openMenubar()} icon={faBars} color="#fff"/>
+                </div>
+                <div className="col-4">
+                  <NavLink to={"/"}>
+                    <img src={"/NL.png"} alt="logo" width="35px"/>
+                  </NavLink>
+                </div>
+                <div className="col-4">
+                  <FontAwesomeIcon onClick={this.openMiniCart.bind(this)} style={{cursor : "pointer"}} icon={faShoppingCart} color="#fff"/>
+                </div>
+              </div>
+              <div className={"menu-bar "+(this.state.menuBar ? "active" : "")}>
+                <ul className="header-list">
+                  {this.state.menus}
+                </ul>
+              </div>
             </div>
           </header>
       );

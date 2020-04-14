@@ -34,7 +34,7 @@ class Main extends React.Component {
     }
     componentWillMount(){
       if(this.state.customer != null){
-          fetch(Helper.apiUrlLocal()+"api/v1/customer/getInfo?id="+this.state.customer.id,{
+          fetch(Helper.apiUrl()+"api/v1/customer/getInfo?id="+this.state.customer.id,{
             headers : {
                 "Authorization" : "Bearer "+this.state.token,
             },
