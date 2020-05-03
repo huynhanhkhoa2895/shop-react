@@ -34,7 +34,7 @@ class MinicartItem extends React.Component {
             <div className="row minicart-box">
                 <div className="col-md-6 ">
                     <div className="minicart-img">
-                        <img src={window.location.origin+'/product/'+info.img[0]} alt={info.product.name} />                  
+                        <img src={window.location.origin+'/img/product/'+info.img[0]} alt={info.product.name} />                  
                     </div>
                 </div>
                 <div className="col-md-6 minicart-content pd0">

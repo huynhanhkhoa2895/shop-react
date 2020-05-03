@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink,Switch } from 'react-router-dom';
+import ScrollToTop from '../../Widget/ScrollToTop/ScrollToTop'
 import Home from '../../Page/Home/Home.js'
 import Category from '../../Page/Category/Category.js'
 import Login from '../../Page/Customer/Login.js'
@@ -58,24 +59,25 @@ class Main extends React.Component {
               </div>
             </div>
             <Switch>
-              <Route path={"/customer"} exact={true} component={Customer} />
-              <Route path={"/customer/info"} exact={true} component={Customer} />
-              <Route path={"/customer/order"} exact={true} component={Order} />
-              <Route path={"/customer/address"} exact={true} component={Address} />
-              <Route path={"/customer/login.html"} exact={true} component={Login} />
-              <Route path={"/customer/logout"} exact={true} component={Logout} />
-              <Route path={"/customer/register.html"} exact={true} component={Register} />
-              <Route path={"/customer/order/:id"} exact={true} component={OrderDetail} />
+              {/* <ScrollToTop /> */}
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer"} exact={true} component={Customer} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/info"} exact={true} component={Customer} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/order"} exact={true} component={Order} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/address"} exact={true} component={Address} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/login.html"} exact={true} component={Login} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/logout"} exact={true} component={Logout} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/register.html"} exact={true} component={Register} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/customer/order/:id"} exact={true} component={OrderDetail} />
 
-              <Route path={"/checkout/cart"} exact={true} component={Cart} />
-              <Route path={"/checkout/success"} exact={true} component={Success} />
-              <Route path={"/checkout/payment"} exact={true} component={Checkout} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/checkout/cart"} exact={true} component={Cart} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/checkout/success"} exact={true} component={Success} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/checkout/payment"} exact={true} component={Checkout} />
 
-              <Route path={"/category/:route"} exact={true} component={Category} />
-              <Route path={"/product/:route"} exact={true} component={ProductView} />
-              <Route path={"/"} exact={true} component={Home}/>   
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/category/:route"} exact={true} component={Category} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/product/:route"} exact={true} component={ProductView} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/"} exact={true} component={Home}/>   
 
-              <Route path={"/privacy-policy"} exact={true} component={PrivacyPolicy} />
+              <Route onUpdate={() => window.scrollTo(0, 0)} path={"/privacy-policy"} exact={true} component={PrivacyPolicy} />
 
               <Route component={NotFound}/>         
             </Switch>

@@ -10,6 +10,9 @@
     float: left;
     margin-right: 10px
 }
+.row-category-box .box-img>img{
+    width: 100%;
+}
 @media all and (max-width: 767px) {
 
 }
@@ -52,8 +55,8 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        
     }
+
     .row-category-box:hover img{
         transform: scale(1.2);
     }

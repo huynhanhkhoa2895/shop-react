@@ -13,12 +13,12 @@ class Footer extends React.Component {
         return (
             <footer>
                 <div className="row email-subcrise">
-                    <div className="col-md-2 offset-md-3" style={{paddingTop : "20px"}}>
+                    <div className="col-md-6 content-email-subcrise" style={{paddingTop : "20px"}}>
                         <span className="f16" style={{color : "#fff"}}>LIÊN HỆ CHÚNG TÔI QUA EMAIL</span>
                     </div>
                     <div className="col-md-6" style={{paddingTop : "10px"}}>
                         <div>
-                            <input placeholder="Email" style={{width : "300px",padding : "10px 5px", borderRadius : "6px 0 0 6px",float : "left",border : "unset",outline : "unset"}}/>
+                            <input placeholder="Email" style={{maxidth : "300px",padding : "10px 5px", borderRadius : "6px 0 0 6px",float : "left",border : "unset",outline : "unset"}}/>
                             <button style={{padding : "10px", float : "left",border : "unset",outline : "unset",background : "#444",color : "#fff", borderRadius : "0 6px 6px 0"}}>SEND EMAIL</button>
                             <div className="clear"></div>
                         </div>

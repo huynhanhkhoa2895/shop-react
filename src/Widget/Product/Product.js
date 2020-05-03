@@ -40,7 +40,7 @@ class Product extends React.Component {
         this.state.images.map((e,index)=>{       
             arr.push(
                 <div onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
-                    <img src={window.location.origin + '/product/' + e} alt={this.props.name} />
+                    <img src={window.location.origin + '/img/product/' + e} alt={this.props.name} />
                 </div>
             )     
         })
@@ -53,7 +53,7 @@ class Product extends React.Component {
             <div className={"product-container-box "+ this.state.small}>
                 <div className="box-img">
                     <NavLink className="text-center" to={"/product/"+this.props.route}>
-                        <img src={window.location.origin + '/product/' + this.state.mainImg} alt={this.props.name}/>
+                        <img src={window.location.origin + '/img/product/' + this.state.mainImg} alt={this.props.name}/>
                     </NavLink>
                 </div>
                 <div className="box-content">

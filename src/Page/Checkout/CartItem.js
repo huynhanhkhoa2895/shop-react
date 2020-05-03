@@ -67,7 +67,7 @@ class CartItem extends React.Component {
                     <div className="td-product">
                         <div className="product-image" style={{overflow : "hidden"}}>
                             <Link to={"/product/"+this.props.cart.product.route}>
-                                <img src={window.location.origin + "/product/"+this.props.cart.img[0]} alt={this.props.cart.product.name}/>
+                                <img src={window.location.origin + "/img/product/"+this.props.cart.img[0]} alt={this.props.cart.product.name}/>
                             </Link>
                         </div>
                         <div className="product-name">

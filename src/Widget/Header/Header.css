@@ -28,6 +28,11 @@ header{
     font-weight: bold;
     color : #f3a839;
 }
+.span-total-header{
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    font-size: 16px;
+}
 .minicart{
     position: absolute;
     right: 0;
@@ -44,7 +49,7 @@ header{
 .minicart .minicart-info{
     height: 110px;
     font-size: 14px;
-    border-top: 1px solid #444;
+    border-top: 1px solid #ccc;
 
 }
 .minicart .minicart-box{
@@ -129,11 +134,12 @@ header{
     .header-container-mobile{
         display: none;
     }
-
-
-    .header-container-mobile ul.header-list>li a{
+    .header-container-desktop ul.header-list>li a{
         color: #fff;
         text-align: left;
+    }
+    .header-container-desktop ul.header-list>li  ul.header-is-login>li a{
+        color: #f3a839;
     }
     .header-container-desktop{
         height: 100%;

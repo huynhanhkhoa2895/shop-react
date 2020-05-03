@@ -9,7 +9,7 @@ footer p{
     color: #444;    
 }
 .email-subcrise{
-    height: 60px;
+    min-height: 60px;
     background: #f3a839;
 }
 .footer-content{    
@@ -27,4 +27,19 @@ footer p{
     letter-spacing: 0.03em;
     font-weight: 500;
     font-family: 'Hind', sans-serif;
+}
+@media all and (max-width: 767px) {
+    .email-subcrise{
+        padding: 10px;
+    }
+    .content-email-subcrise{
+        padding-top: 0;
+        text-align: center;
+    }
+}
+@media all and (min-width: 767px) {
+    .content-email-subcrise{
+        padding-top: 20px;
+        text-align: right;
+    }
 }

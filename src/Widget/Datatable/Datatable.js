@@ -63,7 +63,7 @@ class Datatable extends React.Component {
                                                 <div className="td-product">
                                                     <div className="product-image" style={{overflow : "hidden"}}>
                                                         <Link to={"/product/"+e.route}>
-                                                            <img src={window.location.origin + "/product/"+e.img[0].name} alt={e.name}/>
+                                                            <img src={window.location.origin + "/img/product/"+e.img[0].name} alt={e.name}/>
                                                         </Link>
                                                     </div>
                                                     <div className="product-name">

@@ -51,7 +51,7 @@ class Home extends React.Component {
                     </div>
                     <div className="col-md-5 pd0 h100">
                         <div className="row">
-                            <div className="col-6 pd0">
+                            <div className="col-xs-12 col-md-6 pd0">
                                 <div className="row-category-box box-1">
                                     <div className="box-img">
                                         <img src={"home/h4.png"} alt="img" />
@@ -59,7 +59,7 @@ class Home extends React.Component {
                                     <NavLink to="category/men.html" className="box-button">Men</NavLink>
                                 </div>
                             </div>
-                            <div className="col-6 pd0">
+                            <div className="col-xs-12 col-md-6 pd0">
                                 <div className="row-category-box box-1">
                                     <div className="box-img">
                                         <img src={"home/h5.png"} alt="img" />

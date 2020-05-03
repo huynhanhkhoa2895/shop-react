@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus,faMinus } from '@fortawesome/free-solid-svg-icons'
 import ProductList from '../../Widget/ProductList/ProductList.js';
 import Helper from '../../lib/Helper'
+import {connect} from 'react-redux';
 import {remove} from 'lodash'
 class ProductView extends React.Component {
     constructor(props){
@@ -18,72 +19,78 @@ class ProductView extends React.Component {
             images : [],
             option_xhtml : [],
             option_product : [],
+            route : this.props.match.params.route,
             qty : 1,
         }
+        this.loadData = this.loadData.bind(this);
     }
     componentDidMount() {
+        this.loadData()
+    }
+    loadData(){
         let arrImg = [];
         let arrOption = [];
         let arrImgName = [];
-        fetch(Helper.apiUrl()+"api/v1/product/view/"+this.props.match.params.route)
+        this.props.openLoading();
+        fetch(Helper.apiUrl()+"api/v1/product/view/"+this.state.route)
         .then(res => res.json())
         .then(
           (result) => {
               if(result.product.length === 0){                  
                 return <Redirect to="not-found.html" />
               }else{
-                  this.setState({
-                    mainImg : result.image[0].name,
-                   
-                    product : result.product,
-                    option_xhtml : []
-                  })
-                  
-                  result.image.map((e,index)=>{   
-                    arrImgName.push(e.name)    
-                    arrImg.push(
-                          <div key={index+'img'} onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
-                              <img src={window.location.origin + '/product/' + e.name} alt={this.props.name} />
-                          </div>
-                      )     
-                  })
-                  this.setState({
-                      images : arrImgName,
-                  })
-                  let classFilter = "";
-                  let xhtml_option_item = [];
-                  Object.keys(result.option_product['option']).map((e,index)=>{
-                    xhtml_option_item = [...[]]
-                    if(e == 1){
-                        classFilter = 'filter-size'
-                    }else if(e == 2){
-                        classFilter = 'filter-color'
-                    }else{
-                        classFilter = ""
-                    }
-                    
-                    result.option_product['value'].map((e2,k)=>{                         
-                        if(e2.option_id == e){    
-                            // option2.push(e2)                                        
-                            xhtml_option_item.push(
-                                <div  key={k} style={{maxWidth : '40px'}} className="col">
-                                    <span onClick={(e3)=>(this.chooseOption(e3,{option_id : e2.option_id,option : e2,product : this.state.product.id}))} style={(e == 2) ? {background : e2.value} : {}} className={classFilter} >{e == 2 ? '' : e2.value}</span>
-                                </div>
-                            )
-                        }
+                    this.props.closeLoading();
+                    window.scrollTo(0, 0);
+                    this.setState({
+                        mainImg : result.image[0].name,
+                        product : result.product,
+                        option_xhtml : []
                     })
-                    arrOption.push(
-                        <div key={index+'option'} className="row">
-                            <div className="col-md-12 f18 colorGrey pd0">{result.option_product['option'][e]}</div>
-                            <div className="col-md-12">
-                                <div className="row">
-                                    {xhtml_option_item}
+                    
+                    result.image.map((e,index)=>{   
+                        arrImgName.push(e.name)    
+                        arrImg.push(
+                            <div key={index+'img'} onClick={(e2) => this.activeSmallImage(e2,e)} key={index} className={index === 0 ? 'box-small-img active' : 'box-small-img'}>
+                                <img src={window.location.origin + '/img/product/' + e.name} alt={this.props.name} />
+                            </div>
+                        )     
+                    })
+                    this.setState({
+                        images : arrImgName,
+                    })
+                    let classFilter = "";
+                    let xhtml_option_item = [];
+                    Object.keys(result.option_product['option']).map((e,index)=>{
+                        xhtml_option_item = [...[]]
+                        if(e == 1){
+                            classFilter = 'filter-size'
+                        }else if(e == 2){
+                            classFilter = 'filter-color'
+                        }else{
+                            classFilter = ""
+                        }
+                        
+                        result.option_product['value'].map((e2,k)=>{                         
+                            if(e2.option_id == e){    
+                                // option2.push(e2)                                        
+                                xhtml_option_item.push(
+                                    <div  key={k} style={{maxWidth : '40px'}} className="col">
+                                        <span onClick={(e3)=>(this.chooseOption(e3,{option_id : e2.option_id,option : e2,product : this.state.product.id}))} style={(e == 2) ? {background : e2.value} : {}} className={classFilter} >{e == 2 ? '' : e2.value}</span>
+                                    </div>
+                                )
+                            }
+                        })
+                        arrOption.push(
+                            <div key={index+'option'} className="row">
+                                <div className="col-md-12 f18 colorGrey pd0">{result.option_product['option'][e]}</div>
+                                <div className="col-md-12">
+                                    <div className="row">
+                                        {xhtml_option_item}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                  })
-
+                        )
+                    })
               }
           },
           (error) => {
@@ -144,15 +151,23 @@ class ProductView extends React.Component {
             }
         }
     }
+    async componentWillReceiveProps(nextProps,nextState){
+        if(this.props.match.params.route != nextProps.match.params.route){
+            await this.setState({
+                route : nextProps.match.params.route
+            })
+            this.loadData()
+        }
+      }
     render() {
-
+        console.log("reder");
         if(Object.keys(this.state.product).length !== 0){
             return ( 
                 <div className="container product-container">
                     <div className="row">
                         <div className="col-md-6 product-img">
                             <div className="product-main-img">
-                                <img src={window.location.origin + '/product/' + this.state.mainImg} alt={this.props.name}/>
+                                <img src={window.location.origin + '/img/product/' + this.state.mainImg} alt={this.props.name}/>
                             </div>
                             <div className="product-small-image text-center">
                                 {this.state.smallImg}
@@ -207,4 +222,14 @@ class ProductView extends React.Component {
         
     }
 }
-export default ProductView;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        closeLoading : () =>{
+            dispatch({type : 'CLOSE_LOADING'});
+        },
+        openLoading : () =>{
+            dispatch({type : 'OPEN_LOADING'});
+        },
+    }
+}
+export default connect(null, mapDispatchToProps)(ProductView);

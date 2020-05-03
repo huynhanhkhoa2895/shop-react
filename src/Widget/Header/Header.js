@@ -14,6 +14,7 @@ class Header extends React.Component {
       super(props);
       this.state = {
         menus : [],
+        menus2 : [],
         sticky : 0,
         templateMinicart : null,  
         popup : true,
@@ -36,10 +37,13 @@ class Header extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
+            let header = []
+            result.map((item,index)=>
+                header.push(<li key={index}><NavLink to={"/category/"+item.route}>{item.name}</NavLink></li>)
+            )
             this.setState({
-              menus : result.map((item,index)=>
-                <li key={index}><NavLink to={"/category/"+item.route}>{item.name}</NavLink></li>
-              )
+              menus : header,
+              menus2 : header
             })
           },
           (error) => {
@@ -111,13 +115,13 @@ class Header extends React.Component {
           <>
           <div className="row">
             <div className="col-md-6">
-              <span>Tổng cộng ({this.props.carts.length}): </span>
+              <span class="span-total-header">Tổng cộng ({this.props.carts.length}): </span>
             </div>
             <div className="col-md-6 text-right">{Helper.format_curency(total)} <b>VND</b></div>
           </div>
           <div className="row">
             <div className="col-md-6 offset-md-6">
-              <Link to={"/checkout/cart"} className="btn-checkout-minicart">Vào giỏ hàng</Link>
+              <Link to={"/checkout/cart"} className="btn-checkout-minicart text-center">Vào giỏ hàng</Link>
             </div>
           </div>
           </>
@@ -213,7 +217,7 @@ class Header extends React.Component {
               </div>
               <div className={"menu-bar "+(this.state.menuBar ? "active" : "")}>
                 <ul className="header-list">
-                  {this.state.menus}
+                  {this.state.menus2}
                 </ul>
               </div>
             </div>

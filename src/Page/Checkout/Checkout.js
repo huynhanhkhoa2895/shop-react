@@ -131,7 +131,7 @@ class Checkout extends React.Component {
                     <div className="col-md-2 pd0">
                         <div className="box-img">
                             <Link to={"/product/"+e.product.route}>
-                                <img src={"/product/"+e.img[0]} />
+                                <img src={"/img/product/"+e.img[0]} />
                             </Link>
                         </div>
 
